@@ -4,7 +4,9 @@ import router from './router';
 import store from './store';
 import './plugin/element.js';
 Vue.config.productionTip = false;
-
+//axios
+import request from './plugin/axios.js';
+Vue.prototype.$http = request;
 new Vue({
 	router,
 	store,

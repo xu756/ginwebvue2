@@ -17,6 +17,7 @@ export default request
 //请求拦截器
 request.interceptors.request.use(
 	(config) => {
+		
 		//在请求发送之前做一些处理
 		//判断路由path是否是登录页面
 		if (router.currentRoute.path !== '/login') {
