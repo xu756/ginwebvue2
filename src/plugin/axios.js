@@ -2,22 +2,21 @@
 import axios from 'axios';
 import qs from 'qs';
 import router from '../router/index';
-let loadingInstance // 加载全局的loading
-var that
-that=this
-const baseurl = 'http://localhost:7000/api/user/';
+import { Message, Loading } from 'element-ui';
+let loadingInstance; // 加载全局的loading
+const baseurl = '/api/user/';
 const request = axios.create({
 	baseURL: baseurl,
 	timeout: 5000,
 	headers: {
-		sn: new Date().getTime()
+		sn: new Date().getTime(),
+		'Content-Type': 'application/x-www-form-urlencoded'
 	}
 });
-export default request
+export default request;
 //请求拦截器
 request.interceptors.request.use(
 	(config) => {
-		
 		//在请求发送之前做一些处理
 		//判断路由path是否是登录页面
 		if (router.currentRoute.path !== '/login') {
@@ -28,7 +27,7 @@ request.interceptors.request.use(
 				config.headers.token = token;
 			} else {
 				//如果token不存在，则跳转到登录页面
-				this.$message({
+				Message({
 					message: '请重新登录',
 					type: 'error'
 				});
@@ -45,7 +44,7 @@ request.interceptors.request.use(
 	},
 	(error) => {
 		//请求错误时做一些处理
-		that.$message({
+		Message({
 			message: '系统错误,请稍后再试',
 			type: 'error'
 		});
@@ -57,7 +56,7 @@ request.interceptors.response.use(
 	(response) => {
 		//在请求成功之后做一些处理
 		//关闭加载动画
-		// loadingInstance.close();
+		loadingInstance.close();
 		//判断返回的状态码是否是200
 		if (response.status === 200) {
 			//如果是200，则返回数据
@@ -67,8 +66,8 @@ request.interceptors.response.use(
 	(error) => {
 		//请求错误时做一些处理
 		//关闭加载动画
-		// loadingInstance.close();
-		that.$message({
+		loadingInstance.close();
+		Message({
 			message: '请求错误,请稍后再试',
 			type: 'error'
 		});
@@ -76,17 +75,19 @@ request.interceptors.response.use(
 	}
 );
 /**
- * 
- * @param {string} url 请求地址
- * @param {object} params 	请求参数
- * @returns 					Promise对象
+ * 封装axios的post请求
+ * @param url
+ * @param data
+ * @returns {Promise}
  */
-export const get = (url, params) => {
+export function post(url, data = {}) {
+	console.log(url);
 	return new Promise((resolve, reject) => {
-		request
-			.get(url, {
-				params: params
-			})
+		request({
+			method: 'post',
+			url: url,
+			data: qs.stringify(data)
+		})
 			.then((response) => {
 				resolve(response);
 			})
@@ -94,20 +95,4 @@ export const get = (url, params) => {
 				reject(error);
 			});
 	});
-};
-/** 
-*	@param {string} url 请求地址
-*	@param {object} params 	请求参数
-*/
-export const post = (url, params) => {
-	return new Promise((resolve, reject) => {
-		request
-			.post(url, qs.stringify(params))
-			.then((response) => {
-				resolve(response);
-			})
-			.catch((error) => {
-				reject(error);
-			});
-	});
-};
+}

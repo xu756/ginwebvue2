@@ -4,9 +4,8 @@
 <script>
 export default {
   name: "Login",
-  created() {
-    this.$http
-      .post("/api/login", {
+  mounted() {
+    this.$http.post("login", {
         username: "admin",
         password: "admin",
       })
