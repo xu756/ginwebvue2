@@ -3,12 +3,13 @@ module.exports = defineConfig({
 	transpileDependencies: true,
 	// 跨域支持
 	devServer: {
+		inline: true, //热更新
 		proxy: {
-			'/api/user': {
-				target: 'http://localhost:7000/api/user/',
+			'/api/vue2/user': {
+				target: 'http://localhost:7000/api/vue2/user/',
 				changeOrigin: true, // 允许跨域
 				pathRewrite: {
-					'^/api/user': ''
+					'^/api/vue2/user': ''
 				}
 			}
 		}
