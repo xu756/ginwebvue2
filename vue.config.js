@@ -3,7 +3,6 @@ module.exports = defineConfig({
 	transpileDependencies: true,
 	// 跨域支持
 	devServer: {
-		inline: true, //热更新
 		proxy: {
 			'/api/vue2/user': {
 				target: 'http://localhost:7000/api/vue2/user/',

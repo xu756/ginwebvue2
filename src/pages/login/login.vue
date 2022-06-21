@@ -1,17 +1,19 @@
 <template>
-  <div id="Mainbox">登录页面</div>
+  <div id="Mainbox">
+    <div id="bg"></div>
+  </div>
 </template>
 <script>
 export default {
   name: "Login",
   mounted() {
-    this.$http
-      .post("login", {
+    this.$post
+      ("login", {
         username: "admin",
         password: "admin",
       })
-      .then((response) => {
-        console.log(response.data);
+      .then((res) => {
+        console.log(res);
       });
   },
 };
@@ -20,9 +22,13 @@ export default {
 #Mainbox {
   width: 100%;
   height: 100%;
-  background-color: #fff;
   text-align: center;
-  line-height: 100%;
+
   color: #000;
+  #bg {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+  }
 }
 </style>

@@ -1,10 +1,9 @@
 //封装axios
 import axios from 'axios';
-import qs from 'qs';
 import router from '../router/index';
 import { Message, Loading } from 'element-ui';
 let loadingInstance; // 加载全局的loading
-const baseurl = '/api/user/';
+const baseurl = '/api/vue2/user/';
 const request = axios.create({
 	baseURL: baseurl,
 	timeout: 5000,
@@ -13,7 +12,6 @@ const request = axios.create({
 		'Content-Type': 'application/x-www-form-urlencoded'
 	}
 });
-export default request;
 //请求拦截器
 request.interceptors.request.use(
 	(config) => {
@@ -75,24 +73,23 @@ request.interceptors.response.use(
 	}
 );
 /**
- * 封装axios的post请求
+ * 封装post请求
  * @param url
  * @param data
  * @returns {Promise}
  */
+
 export function post(url, data = {}) {
-	console.log(url);
 	return new Promise((resolve, reject) => {
-		request({
-			method: 'post',
-			url: url,
-			data: qs.stringify(data)
-		})
-			.then((response) => {
-				resolve(response);
-			})
-			.catch((error) => {
-				reject(error);
-			});
+		request.post(url, data).then(
+			(res) => {
+				resolve(res);
+			},
+			(err) => {
+				reject(err);
+			}
+		);
 	});
 }
+
+export default post;
