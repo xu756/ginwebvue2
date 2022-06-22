@@ -1,13 +1,15 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"example.com/mod/views"
+	"github.com/gin-gonic/gin"
+)
 
 func UserRouter(r *gin.Engine) *gin.Engine {
-	rr := r.Group("/api/web/user/") // web管理路由
-	rr.GET("/", func(c *gin.Context) {
-		c.String(200, "user")
-
-	})
+	rr := r.Group("/api/vue2/user/") // web管理路由
+	rr.POST("/login", views.Login)
+	rr.POST("/register1", views.Register1)
+	rr.POST("/register2", views.Register2)
 
 	return r
 }

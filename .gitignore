@@ -24,3 +24,4 @@ pnpm-debug.log*
 *.exe
 .idea
 /server/tmp
+*.db

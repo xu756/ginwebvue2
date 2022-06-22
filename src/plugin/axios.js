@@ -2,13 +2,14 @@
 import axios from 'axios';
 import router from '../router/index';
 import { Message, Loading } from 'element-ui';
+import moment from 'moment';
 let loadingInstance; // 加载全局的loading
 const baseurl = '/api/vue2/user/';
 const request = axios.create({
 	baseURL: baseurl,
 	timeout: 5000,
 	headers: {
-		sn: new Date().getTime(),
+		sn: moment().format('YYYY-MM-DD hh:mm:ss'),
 		'Content-Type': 'application/x-www-form-urlencoded'
 	}
 });
@@ -87,6 +88,10 @@ export function post(url, data = {}) {
 					router.push('/login');
 					return;
 				}
+				Message({
+					message: res.msg,
+					type: 'success'
+				});
 				resolve(res);
 			},
 			(err) => {
