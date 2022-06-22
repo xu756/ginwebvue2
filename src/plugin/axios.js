@@ -83,6 +83,10 @@ export function post(url, data = {}) {
 	return new Promise((resolve, reject) => {
 		request.post(url, data).then(
 			(res) => {
+				if (res.type === 'loginout') {
+					router.push('/login');
+					return;
+				}
 				resolve(res);
 			},
 			(err) => {
