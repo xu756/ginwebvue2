@@ -11,8 +11,10 @@
           <div class="tab_item" @click="tab('login')">登录</div>
           <div class="tab_item" @click="tab('register')">注册</div>
         </div>
-        <login-box v-if="show == 'login'"></login-box>
-        <register-box v-if="show == 'register'"></register-box>
+        <div class="form_container">
+          <login-box v-if="show == 'login'"></login-box>
+          <register-box v-if="show == 'register'"></register-box>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +26,7 @@ export default {
   name: "Login",
   data() {
     return {
-      show: "register",
+      show: "login",
     };
   },
   // 登录页面的组件
@@ -77,10 +79,42 @@ export default {
       }
     }
     .form_box {
-      width: 40%;
-      height: 100%;
+      width: 32%;
+      height: 80%;
       float: right;
-      background: #400404;
+      background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+
+      padding: 2%;
+      border-radius: 20px;
+      .form_tab {
+        width: 100%;
+        height: 50px;
+        .active {
+          color: #00a0e9;
+          border-bottom: 1px solid #000;
+        }
+        .tab_item {
+          width: 50%;
+          height: 100%;
+          border-bottom: 1px solid #e5e5e5;
+          float: left;
+          text-align: center;
+          line-height: 50px;
+          color: #000;
+          font-size: 20px;
+          font-weight: bold;
+          cursor: pointer;
+          &:hover {
+            color: #00a0e9;
+            border-bottom: 1px solid #000;
+          }
+        }
+      }
+      .form_container{
+        margin-top: 20px;
+        width: 90%;
+        margin-left: 5%;
+      }
     }
   }
 }
