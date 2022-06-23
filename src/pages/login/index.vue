@@ -2,20 +2,40 @@
   <div id="Maxbox">
     <div id="bg"></div>
     <div id="Mainbox">
-      <div class="login_img">
-        <img src="../../assets/images/bg1.png" alt="" />
+      <div class="form_img">
+        <img src="../../assets/images/bg1.png" />
       </div>
-      <div class="login_box"></div>
+      <div class="form_box">
+        <!-- 切换 -->
+        <div class="form_tab">
+          <div class="tab_item" @click="tab('login')">登录</div>
+          <div class="tab_item" @click="tab('register')">注册</div>
+        </div>
+        <login-box v-if="show == 'login'"></login-box>
+        <register-box v-if="show == 'register'"></register-box>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import LoginBox from "./login.vue";
+import RegisterBox from "./register.vue";
 export default {
   name: "Login",
   data() {
     return {
-     
+      show: "register",
     };
+  },
+  // 登录页面的组件
+  components: {
+    LoginBox: LoginBox, // 登录页面的组件
+    RegisterBox: RegisterBox, // 注册页面的组件
+  },
+  methods: {
+    tab(type) {
+      this.show = type;
+    },
   },
 };
 </script>
@@ -46,7 +66,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    .login_img {
+    .form_img {
       width: 40%;
       height: 100%;
       float: left;
@@ -56,7 +76,7 @@ export default {
         margin: 0 10%;
       }
     }
-    .login_box {
+    .form_box {
       width: 40%;
       height: 100%;
       float: right;
