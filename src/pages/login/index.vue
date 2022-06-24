@@ -95,14 +95,13 @@ export default {
       height: 80%;
       float: right;
       background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-
       padding: 2%;
       border-radius: 20px;
       .form_tab {
         width: 100%;
         height: 50px;
         .active {
-          color: #00a0e9!important;
+          color: #00a0e9 !important;
           border-bottom: 1px solid #000 !important;
         }
         .tab_item {
@@ -116,7 +115,6 @@ export default {
           font-size: 20px;
           font-weight: bold;
           cursor: pointer;
-         
         }
       }
       .form_container {
