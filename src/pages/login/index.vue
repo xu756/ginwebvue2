@@ -69,7 +69,7 @@ export default {
       cover;
   }
   #Mainbox {
-    width: 1220px;
+    width: 70%;
     height: 550px;
     padding: 122px;
     opacity: 0.7;
