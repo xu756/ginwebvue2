@@ -1,9 +1,13 @@
 // 按需引入 Element 模块
 
 import Vue from 'vue';
-import { Button, Message, Form, FormItem, Input,} from 'element-ui';
+import 'element-ui/lib/theme-chalk/base.css';
+import { Button, Message, Form, FormItem, Input,Col,Row} from 'element-ui';
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
+Vue.use(Input);
+Vue.use(Col);
+Vue.use(Row);
 
 Vue.prototype.$message = Message;

@@ -24,8 +24,8 @@
           </div>
         </div>
         <div class="form_container">
-          <login-box v-if="show == 'login'"></login-box>
-          <register-box v-if="show == 'register'"></register-box>
+          <login-box key="1" v-if="show == 'login'" class="animate__animated animate__fast animate__fadeInDown"></login-box>
+          <register-box key="2" v-if="show == 'register'" class="animate__animated animate__flipInX"></register-box>
         </div>
       </div>
     </div>
