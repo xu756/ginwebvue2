@@ -28,6 +28,7 @@ func RedisInit() {
 
 // Set 封装redis的set方法
 func Set(key string, value interface{}, timeout int) {
+	Del(key)
 	err := RedisClient.Set(ctx, key, value, time.Duration(timeout)*time.Second).Err()
 	if err != nil {
 		fmt.Println("缓存错误")

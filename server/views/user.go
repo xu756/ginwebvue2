@@ -31,10 +31,11 @@ func Register1(c *gin.Context) {
 	data := make(map[string]interface{})
 	c.BindJSON(&data)
 	models.InitMysqlDB()
+	cache.RedisInit()
 	var db = models.DB
 	var user models.User
-	db.Where("user_name = ?", data["username"]).First(&user)
-	if user.Id == 0 {
+	db.Where("user_name = ?", data["username"]).Find(&user)
+	if user.Id != 0 {
 		c.JSON(200, gin.H{
 			"type": "error",
 			"msg":  "用户名存在",
@@ -51,7 +52,14 @@ func Register1(c *gin.Context) {
 		Subject: "邮箱验证",
 		Body:    "您的验证码是：" + code,
 	}
-	methods.SendEmail(&e)
+	if methods.SendEmail(&e) == false {
+		c.JSON(200, gin.H{
+			"type": "error",
+			"msg":  "邮件发送失败",
+		})
+		return
+
+	}
 	//生产随机字符串
 	str := methods.RandStr(6)
 	// 将随机字符串存入redis

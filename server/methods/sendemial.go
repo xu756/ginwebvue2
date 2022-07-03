@@ -13,7 +13,7 @@ type EmailTo struct {
 }
 
 // SendEmail 发送邮件
-func SendEmail(e *EmailTo) {
+func SendEmail(e *EmailTo) bool {
 	// 创建一个发送邮件的对象
 	msg := gomail.NewMessage()
 	// 设置发件人
@@ -28,8 +28,8 @@ func SendEmail(e *EmailTo) {
 	d := gomail.NewDialer(config.Emial.Host, config.Emial.Port, config.Emial.From, config.Emial.Password)
 	// 发送邮件
 	if err := d.DialAndSend(msg); err != nil {
-		println("发送邮件失败", err.Error())
-		return
+		println("发送邮件失败")
+		return false
 	}
 	var db = models.DB
 	var emial models.Emial
@@ -37,4 +37,5 @@ func SendEmail(e *EmailTo) {
 	emial.Subject = e.Subject
 	emial.Body = e.Body
 	db.Create(&emial)
+	return true
 }

@@ -29,10 +29,8 @@ type emailConfig struct {
 
 var Emial = emailConfig{
 	Host:     "smtp.163.com",
-	Port:     25,
+	Port:     465,
 	Username: "阿新网",
-	From:     "xu756.top@163.com",
-	Password: "SCYWTIRMYVWATFMN",
+	From:     "xu756top@163.com",
+	Password: "CZVXGXVNKUIXNDHX",
 }
-
-//
