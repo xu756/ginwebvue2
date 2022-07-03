@@ -88,10 +88,13 @@ export function post(url, data = {}) {
 					router.push('/login');
 					return;
 				}
-				Message({
-					message: res.msg,
-					type: 'success'
-				});
+				if (res.type === 'scuess') {
+					Message({
+						message: res.msg,
+						type: 'success'
+					});
+					return;
+				}
 				resolve(res);
 			},
 			(err) => {

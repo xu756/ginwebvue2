@@ -74,6 +74,7 @@ func Register1(c *gin.Context) {
 func Register2(c *gin.Context) {
 	data := make(map[string]interface{})
 	c.BindJSON(&data)
+	cache.RedisInit()
 	randStr := data["randStr"].(string)
 	code := data["code"].(string)
 	if cache.Get(randStr) != code {
@@ -94,7 +95,7 @@ func Register2(c *gin.Context) {
 	var user models.User
 	user.UserName = data["username"].(string)
 	user.Password = data["password"].(string)
-	user.Role = data["role"].(string)
+	user.Role = "用户"
 	user.Emial = data["email"].(string)
 	//生成token
 	h = sha512.New()
