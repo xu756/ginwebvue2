@@ -8,6 +8,7 @@ import (
 	"example.com/mod/methods"
 	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
+	"log"
 	"math/rand"
 	"strconv"
 	"time"
@@ -16,13 +17,51 @@ import (
 // 登录
 
 func Login(c *gin.Context) {
-	var l map[string]string
-	c.BindJSON(&l)
-
+	models.InitMysqlDB()
+	cache.RedisInit()
+	var db = models.DB
+	data := make(map[string]interface{}) // 定义一个map 存储客户端数据
+	err := c.BindJSON(&data)             // 获取客户端数据
+	if err != nil {
+		log.Panicln("无法解析数据") // 如果解析失败 则报错
+		return
+	}
+	// 对密码进行sha256加密
+	h := sha256.New()
+	h.Write([]byte(data["password"].(string)))
+	data["password"] = hex.EncodeToString(h.Sum(nil)) // 对密码进行加密
+	var user models.User
+	db.Where("user_name = ?", data["username"]).First(&user)
+	if user.Id == 0 {
+		c.JSON(200, gin.H{
+			"type": "error",
+			"msg":  "用户名不存在",
+		})
+		return
+	}
+	if user.Password != data["password"] {
+		c.JSON(200, gin.H{
+			"type": "error",
+			"msg":  "密码错误",
+		})
+		return
+	}
+	// 生成token
+	h = sha512.New()
+	h.Write([]byte(user.UserName + user.Password + time.Now().String()))
+	token := hex.EncodeToString(h.Sum(nil))
+	user.Token = token                        // 将token存入数据库
+	cache.Set(user.UserName, token, 60*60*24) //redis缓存token
+	user.Frequency = user.Frequency + 1
+	db.Save(&user)
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "登录成功",
-		"data": l,
+		"data": gin.H{
+			"token":    user.Token,
+			"username": user.UserName,
+			"userid":   user.Id,
+		},
 	})
 }
 
@@ -102,12 +141,16 @@ func Register2(c *gin.Context) {
 	h.Write([]byte(user.UserName + user.Password + time.Now().String()))
 	token := hex.EncodeToString(h.Sum(nil))
 	user.Token = token
+	cache.Set(user.UserName, token, 60*60*24) //redis缓存token
+	user.Frequency = user.Frequency + 1
 	db.Create(&user)
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "注册成功",
 		"data": gin.H{
+			"token":    user.Token,
 			"username": user.UserName,
+			"userid":   user.Id,
 		},
 	})
 }

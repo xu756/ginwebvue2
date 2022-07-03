@@ -12,7 +12,7 @@
     <el-form-item label="密码" prop="password">
       <el-input type="password" v-model="userform.password"></el-input>
     </el-form-item>
-    <el-row  align="bottom">
+    <el-row align="bottom">
       <el-col :span="15">
         <el-form-item label="验证码" prop="captcha">
           <el-input v-model="userform.captcha"></el-input>
@@ -60,7 +60,7 @@ export default {
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在3到5个字符", trigger: "blur" },
+          { min: 6, max: 12, message: "长度在6到12个字符", trigger: "blur" },
         ],
         captcha: [
           { required: true, message: "请输入验证码", trigger: "blur" },
@@ -78,13 +78,17 @@ export default {
       this.$refs.form_ref.validate((valid) => {
         if (valid) {
           if (this.userform.captcha == this.code) {
-            this.$store.dispatch("login", this.userform).then((res) => {
-              if (res.code == 200) {
+            this.$post("login", this.userform).then((res) => {
+              if (res.type == "success") {
                 this.$message({
                   message: "登录成功",
                   type: "success",
                 });
-                this.$router.push("/");
+                this.$cookies.set("token", res.data.token, "24h");
+                this.$store.state.userInfo.username = res.data.username;
+                this.$store.state.userInfo.token = res.data.token;
+                console.log(this.$store.state.userInfo);
+                // this.$router.push("/");
               } else {
                 this.$message({
                   message: res.msg,
