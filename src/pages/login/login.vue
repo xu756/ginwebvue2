@@ -1,24 +1,25 @@
 <template>
-  <el-form ref="form_ref" :model="userform" :rules="form_rules">
+  <el-form
+    ref="form_ref"
+    :model="userform"
+    :rules="form_rules"
+    label-width="65px"
+    label-position="left"
+  >
     <el-form-item label="用户名" prop="username">
       <el-input v-model="userform.username"></el-input>
     </el-form-item>
     <el-form-item label="密码" prop="password">
       <el-input type="password" v-model="userform.password"></el-input>
     </el-form-item>
-    <el-row :gutter="20" align="bottom">
+    <el-row  align="bottom">
       <el-col :span="15">
         <el-form-item label="验证码" prop="captcha">
           <el-input v-model="userform.captcha"></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="5">
-        <el-form-item label="验证码">
-          <s-identify
-            :identifyCode="code"
-            @click.native="resetcode"
-          ></s-identify>
-        </el-form-item>
+      <el-col :span="9">
+        <s-identify :identifyCode="code" @click.native="resetcode"></s-identify>
       </el-col>
     </el-row>
     <el-row :gutter="20">

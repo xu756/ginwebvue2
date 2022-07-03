@@ -38,7 +38,7 @@ export default {
   name: "Login",
   data() {
     return {
-      show: "login",
+      show: "register",
     };
   },
   // 登录页面的组件
