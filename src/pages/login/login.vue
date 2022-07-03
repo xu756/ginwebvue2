@@ -85,10 +85,9 @@ export default {
                   type: "success",
                 });
                 this.$cookies.set("token", res.data.token, "24h");
-                this.$store.state.userInfo.username = res.data.username;
-                this.$store.state.userInfo.token = res.data.token;
+                this.$store.state.userInfo = res.data;
                 console.log(this.$store.state.userInfo);
-                // this.$router.push("/");
+                this.$router.push("/");
               } else {
                 this.$message({
                   message: res.msg,

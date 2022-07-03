@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+
 import './plugin/element.js';
 Vue.config.productionTip = false;
 //axios
@@ -13,6 +14,8 @@ Vue.prototype.$md5 = md5;
 // moment 时间格式化
 import moment from 'moment';
 Vue.prototype.$moment = moment;
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
 new Vue({
 	router,
 	store,
