@@ -1,0 +1,30 @@
+.iconfont {
+  padding-right: 10px;
+}
+
+.el-menu {
+  --el-menu-bg-color: none;
+}
+
+.el-container {
+  width: 100%;
+  height: 100%;
+}
+
+.el-container .el-aside {
+  width: 200px;
+  height: 100%;
+  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+}
+
+.el-container .el-container {
+  width: 100%;
+  height: 100%;
+}
+
+.el-container .el-main {
+  width: 100%;
+  height: 100%;
+  background-color: #8ec5fc;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
