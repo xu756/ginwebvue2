@@ -40,7 +40,7 @@ func Set(key string, value interface{}, timeout int) {
 func Get(key string) interface{} {
 	val, err := RedisClient.Get(ctx, key).Result()
 	if err != nil {
-		fmt.Println("缓存错误")
+		fmt.Println("缓存错误", err)
 		return nil
 	}
 	return val

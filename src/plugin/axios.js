@@ -3,6 +3,7 @@ import axios from 'axios';
 import router from '../router/index';
 import { Message, Loading } from 'element-ui';
 import moment from 'moment';
+import VueCookies from 'vue-cookies'
 let loadingInstance; // 加载全局的loading
 const baseurl = '/api/vue2/user/';
 const request = axios.create({
@@ -20,10 +21,11 @@ request.interceptors.request.use(
 		//判断路由path是否是登录页面
 		if (router.currentRoute.path !== '/login') {
 			//获取token
-			const token = localStorage.getItem('token');
+			const token = VueCookies.get('token');
 			//如果token存在，则每个请求都带上token
 			if (token) {
 				config.headers.token = token;
+				config.headers.username=VueCookies.get('pad');
 			} else {
 				//如果token不存在，则跳转到登录页面
 				Message({

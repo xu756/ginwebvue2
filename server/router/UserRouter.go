@@ -10,5 +10,6 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.POST("/login", views.Login)
 	rr.POST("/register1", views.Register1)
 	rr.POST("/register2", views.Register2)
+	rr.POST("/IsLogin", views.IsLogin)
 	return r
 }

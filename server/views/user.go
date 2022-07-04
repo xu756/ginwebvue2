@@ -154,3 +154,25 @@ func Register2(c *gin.Context) {
 		},
 	})
 }
+
+// IsLogin 判断用户是否登录
+func IsLogin(c *gin.Context) {
+
+	token := c.GetHeader("token")
+	cache.RedisInit()
+	useranme := c.GetHeader("username")
+	if cache.Get(useranme) != token {
+		c.JSON(200, gin.H{
+			"type": "error",
+			"msg":  "未登录",
+			"is":   false,
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "已登录",
+		"is":   true,
+	})
+	return
+}

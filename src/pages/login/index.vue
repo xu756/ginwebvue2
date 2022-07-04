@@ -24,8 +24,16 @@
           </div>
         </div>
         <div class="form_container">
-          <login-box key="1" v-if="show == 'login'" class="animate__animated animate__fast animate__fadeInLeft"></login-box>
-          <register-box key="2" v-if="show == 'register'" class="animate__animated animate__flipInX"></register-box>
+          <login-box
+            key="1"
+            v-if="show == 'login'"
+            class="animate__animated animate__fast animate__fadeInLeft"
+          ></login-box>
+          <register-box
+            key="2"
+            v-if="show == 'register'"
+            class="animate__animated animate__flipInX"
+          ></register-box>
         </div>
       </div>
     </div>
@@ -50,7 +58,7 @@ export default {
     tab(type) {
       this.show = type;
     },
-  },
+  }
 };
 </script>
 <style lang="scss">
@@ -70,8 +78,8 @@ export default {
   }
   #Mainbox {
     width: 70%;
-    height: 550px;
-    padding: 122px;
+    height: 60%;
+    padding: 3%;
     opacity: 0.7;
     background: #ffffff;
     border-radius: 20px;
@@ -80,6 +88,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    // backdrop-filter: blur(50px);
     .form_img {
       width: 40%;
       height: 100%;
