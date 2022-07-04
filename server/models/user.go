@@ -29,3 +29,11 @@ type Emial struct {
 	Subject   string    //主题
 	Body      string    //内容
 }
+
+type Message struct {
+	Id   int    `primaryKey:"true"`
+	path string //页面路径
+	icon string //图标
+	// 用户权限 UserRole
+	UserRole []UserRole `gorm:"foreignKey:UserId;references:Id"`
+}

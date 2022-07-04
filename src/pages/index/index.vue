@@ -6,16 +6,16 @@
           <i class="iconfont icon-home1"></i>
           <span>首页</span>
         </el-menu-item>
-        <el-submenu index="/gzh">
+        <el-submenu index="/WxchatPublic">
           <template #title>
             <i class="iconfont icon-gongzhonghaoguanli"></i>
             <span>公众号</span>
           </template>
-          <el-menu-item index="/gzh/menu">
+          <el-menu-item index="/WxchatPublic/menu">
             <i class="iconfont icon-caidan"></i>
             <span>自定义菜单</span>
           </el-menu-item>
-          <el-menu-item index="/gzh/notice">
+          <el-menu-item index="/WxchatPublic/message">
             <i class="iconfont icon-xiaoxitongzhi"></i>
             <span>消息回复</span>
           </el-menu-item>
@@ -28,7 +28,7 @@
     </el-aside>
     <el-container>
       <el-header>Header</el-header>
-      <el-main>Main</el-main>
+      <el-main><router-view></router-view></el-main>
     </el-container>
   </el-container>
 </template>
@@ -48,8 +48,8 @@ export default {
   methods: {
     isuer() {
       this.$post("IsLogin").then((res) => {
-        if (res.is) {
-          this.$router.push("/");
+        if (!res.is) {
+          this.$router.push("/login");
         }
       });
     },

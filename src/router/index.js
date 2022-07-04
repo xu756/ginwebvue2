@@ -7,7 +7,30 @@ const routes = [
 	{
 		path: '/',
 		name: 'index',
-		component: () => import('@/pages/index/index.vue')
+		component: () => import('@/pages/index/index.vue'),
+		redirect: '/home',
+		children: [
+			{
+				path: '/home',
+				name: 'home',
+				component: () => import('@/pages/home/home.vue'),
+			},
+			{
+				path:'/WxchatPublic',
+				name:'WxchatPublic',
+				component: () => import('@/pages/wxchat-public/index.vue'),
+			},
+			{
+				path: '/WxchatPublic/menu',
+				name: 'WxchatPublicMenu',
+				component: () => import('@/pages/wxchat-public/menu.vue'),
+			},{
+				path: '/WxchatPublic/message',
+				name: 'WxchatPublicMessage',
+				component: () => import('@/pages/wxchat-public/message.vue'),
+			}
+		]
+
 	},
 	{
 		path: '/login',
