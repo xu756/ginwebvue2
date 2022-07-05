@@ -30,10 +30,11 @@ type Emial struct {
 	Body      string    //内容
 }
 
-type Message struct {
-	Id   int    `primaryKey:"true"`
-	path string //页面路径
-	icon string //图标
-	// 用户权限 UserRole
-	UserRole []UserRole `gorm:"foreignKey:UserId;references:Id"`
+type Menu struct {
+	Id       int    `primaryKey:"true"`
+	Name     string //菜单名称
+	Path     string //页面路径
+	Icon     string
+	ParentId int    //父级菜单
+	Role     string //用户角色
 }
