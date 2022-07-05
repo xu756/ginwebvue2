@@ -18,6 +18,9 @@ import {
 	MenuItem,
 	MenuItemGroup,
     Submenu,
+	Table,
+	TableColumn,
+
 } from 'element-ui';
 Vue.use(Button);
 Vue.use(Form);
@@ -33,4 +36,6 @@ Vue.use(Menu);
 Vue.use(MenuItem);
 Vue.use(MenuItemGroup);
 Vue.use(Submenu);
+Vue.use(Table);
+Vue.use(TableColumn);
 Vue.prototype.$message = Message;
