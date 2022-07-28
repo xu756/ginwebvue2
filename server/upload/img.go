@@ -6,3 +6,60 @@
  */
 
 package upload
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"example.com/mod/cache"
+	"github.com/gin-gonic/gin"
+	"log"
+	"path"
+	"time"
+)
+
+func Img(c *gin.Context) {
+	//err = c.SaveUploadedFile(file, "./media/upload/user/"+filename)
+	//if err != nil {
+	//	log.Panicln("无法保存文件")
+	//	return
+	//}
+	token, _ := c.Request.Cookie("token")
+	cache.RedisInit()
+	useranme, _ := c.Request.Cookie("pad")
+	if cache.Get(useranme.Value) != token.Value {
+		c.JSON(200, gin.H{
+			"type": "error",
+			"msg":  "未登录",
+			"is":   false,
+		})
+		return
+	}
+	// 获取上传文件
+	file, err := c.FormFile("img")
+	if err != nil {
+		log.Panicln("无法获取上传文件")
+		return
+	}
+	// 获取文件名
+	filename := file.Filename
+	// 获取文件后缀
+	ext := path.Ext(filename)
+	// 生成新的文件名
+	h := sha256.New()
+	h.Write([]byte(time.Now().String() + filename))
+	filename = hex.EncodeToString(h.Sum(nil)) + ext
+	// 保存文件
+	err = c.SaveUploadedFile(file, "./media/upload/img/"+filename)
+	if err != nil {
+		log.Panicln("无法保存文件")
+		return
+	}
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "上传成功",
+		"data": gin.H{
+			"url": "/get/img/" + filename,
+		},
+	})
+
+}

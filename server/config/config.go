@@ -2,6 +2,7 @@ package config
 
 func Config() {
 	CreateDir("./media/upload/user") // 创建用户头像文件夹·
+	CreateDir("./media/upload/img")  // 创建文章图片文件夹·
 }
 
 // Redis 配置

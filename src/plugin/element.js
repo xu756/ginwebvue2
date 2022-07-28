@@ -20,6 +20,7 @@ import {
     Submenu,
 	Table,
 	TableColumn,
+	Upload,
 
 } from 'element-ui';
 Vue.use(Button);
@@ -38,4 +39,5 @@ Vue.use(MenuItemGroup);
 Vue.use(Submenu);
 Vue.use(Table);
 Vue.use(TableColumn);
+Vue.use(Upload);
 Vue.prototype.$message = Message;
