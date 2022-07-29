@@ -13,9 +13,9 @@ var RedisClient *redis.Client
 
 func RedisInit() {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     config.Redis.Addr,
-		Password: config.Redis.Password,
-		DB:       config.Redis.Db,
+		Addr:     config.InitData.Redis.Addr,
+		Password: config.InitData.Redis.Password,
+		DB:       config.InitData.Redis.Db,
 	})
 	//测试连接
 	_, err := rdb.Ping(ctx).Result()

@@ -1,0 +1,14 @@
+{
+  "redis": {
+    "host": "21.5.132.57:6700",
+    "password": "123456",
+    "db": 3
+  },
+  "email": {
+    "host": "smtp.163.com",
+    "port": 465,
+    "username": "阿新网",
+    "from": "xu756top@163.com",
+    "password": "CZVXGXVNKUIXNDHX"
+  }
+}

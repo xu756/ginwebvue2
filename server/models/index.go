@@ -9,7 +9,7 @@ import (
 var DB *gorm.DB
 
 func InitMysqlDB() {
-	//dsn := "xu:xjx756756@tcp(121.5.132.57:5700)/ginvue2?charset=utf8&parseTime=True&loc=Local"
+	//dsn := "xu:xjx756756@tcp(127.0.0.1:5700)/ginvue2?charset=utf8&parseTime=True&loc=Local"
 	//db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	db, err := gorm.Open(sqlite.Open("data.db"), &gorm.Config{})
 	if err != nil {

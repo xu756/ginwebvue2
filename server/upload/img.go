@@ -58,7 +58,7 @@ func Img(c *gin.Context) {
 		"type": "success",
 		"msg":  "上传成功",
 		"data": gin.H{
-			"url": "/get/img/" + filename,
+			"url": "/api/get/upload/img/" + filename,
 		},
 	})
 

@@ -20,11 +20,11 @@ func InitRouter() {
 		},
 		)
 	})
-	UserRouter(r)                                         // 用户模块
-	r.POST("upload/img", upload.Img)                      // 上传图片
-	r.StaticFS("/get/upload", http.Dir("./media/upload")) // 静态文件
-	r.SetTrustedProxies([]string{"127.0.0.1"})            //设置代理
-	err := r.Run(":7000")                                 // 监听端口
+	UserRouter(r)                                            // 用户模块
+	r.POST("api/upload/img", upload.Img)                     // 上传图片
+	r.StaticFS("api/get/upload", http.Dir("./media/upload")) // 静态文件
+	r.SetTrustedProxies([]string{"127.0.0.1"})               //设置代理
+	err := r.Run(":7000")                                    // 监听端口
 	fmt.Println("启动成功")
 	if err != nil {
 		fmt.Println("启动失败") // 启动失败
