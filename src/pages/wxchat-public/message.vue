@@ -1,7 +1,11 @@
 <template>
-  <div class="rich-editor">
-    <div id="toolbar-container" />
-    <div id="editor"></div>
+  <div>
+    <ckeditor
+      :editor="editor"
+      v-model="editorData"
+      :config="editorConfig"
+      @ready="onReady"
+    ></ckeditor>
   </div>
 </template>
 <script>
@@ -11,38 +15,61 @@ import UploadAdapter from "@/plugin/upload.js";
 export default {
   data() {
     return {
-      editor: "555", // 编辑器实例
+      editor: DecoupledEditor, // 编辑器实例
+      editorData: "", // 编辑器中的内容
+      editorConfig: {
+        language: "zh-cn", // 中文
+        toolbar: {
+          items: [
+            "heading",
+            "|",
+            "fontfamily",
+            "fontsize",
+            "|",
+            "alignment",
+            "|",
+            "fontColor",
+            "fontBackgroundColor",
+            "|",
+            "bold",
+            "italic",
+            "strikethrough",
+            "underline",
+            "|",
+            "link",
+            "|",
+            "outdent",
+            "indent",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "|",
+            "insertTable",
+            "|",
+            "uploadImage",
+            "blockQuote",
+            "|",
+            "undo",
+            "redo",
+          ],
+        },
+      },
     };
   },
-  mounted() {
-    this.initCKEditor();
-  },
   methods: {
-    initCKEditor() {
-      // 初始化编辑器
-      DecoupledEditor.create(document.querySelector("#editor"), {
-        language: "zh-cn", // 中文
-       editorConfig:{
+    onReady(editor) {
+      // Insert the toolbar before the editable area.
+      editor.ui
+        .getEditableElement()
+        .parentElement.insertBefore(
+          editor.ui.view.toolbar.element,
+          editor.ui.getEditableElement()
+        );
+      editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader);
         
-       }
-      })
-        .then((editor) => {
-          editor.plugins.get("FileRepository").createUploadAdapter = (
-            loader
-          ) => {
-            return new UploadAdapter(loader);
-          };
-          const toolbarContainer = document.querySelector("#toolbar-container");
-          toolbarContainer.appendChild(editor.ui.view.toolbar.element);
-          this.editor = editor; // 将编辑器保存起来，用来随时获取编辑器中的内容等，执行一些操作
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      };
     },
   },
 };
 </script>
-<style lang="scss">
-</style>
-

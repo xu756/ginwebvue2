@@ -14,25 +14,11 @@ module.exports = {
   // 跨域支持
   devServer: {
     proxy: {
-      "/api/vue2/user": {
-        target: "http://localhost:7000/api/vue2/user/",
+      "/api": {
+        target: "http://localhost:7000/api/",
         changeOrigin: true, // 允许跨域
         pathRewrite: {
-          "^/api/vue2/user": ""
-        }
-      },
-      "/upload": {
-        target: "http://localhost:7000/upload/",
-        changeOrigin: true, // 允许跨域
-        pathRewrite: {
-          "^/upload": ""
-        }
-      },
-      "/get": {
-        target: "http://localhost:7000/get/upload",
-        changeOrigin: true, // 允许跨域
-        pathRewrite: {
-          "^/get": ""
+          "^/api": ""
         }
       }
     }

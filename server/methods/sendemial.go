@@ -17,7 +17,7 @@ func SendEmail(e *EmailTo) bool {
 	// 创建一个发送邮件的对象
 	msg := gomail.NewMessage()
 	// 设置发件人
-	msg.SetHeader("From", msg.FormatAddress(config.Emial.From, config.Emial.Username))
+	msg.SetHeader("From", msg.FormatAddress(config.InitData.Email.Host, config.InitData.Email.Username))
 	// 设置收件人
 	msg.SetHeader("To", e.To)
 	// 设置主题
@@ -25,7 +25,7 @@ func SendEmail(e *EmailTo) bool {
 	// 设置内容
 	msg.SetBody("text/html", e.Body)
 	// 创建一个发送邮件的对象
-	d := gomail.NewDialer(config.Emial.Host, config.Emial.Port, config.Emial.From, config.Emial.Password)
+	d := gomail.NewDialer(config.InitData.Email.Host, config.InitData.Email.Port, config.InitData.Email.From, config.InitData.Email.Password)
 	// 发送邮件
 	if err := d.DialAndSend(msg); err != nil {
 		println("发送邮件失败")

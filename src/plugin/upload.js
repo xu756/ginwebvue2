@@ -1,32 +1,27 @@
-import axios from 'axios'
-export default class UploadAdapter {
-	constructor(loader) {
-	  this.loader = loader
-	}
-	upload() {
-	  return this.loader.file.then(file => new Promise((resolve, reject) => {
-		const data = new FormData()
-		data.append('img', file)
-		axios.request({
-		  url: `/upload/img`,// 上传文件的接口地址，实际请填写完整地址
-		  method: 'post',
-		  data,
-		  headers: {
-			'Content-Type': 'multipart/form-data'
-		  }
-		}).then(res => {
-		  if (res.data.type === 'secess') {
-			const url = res.data.url // 后台返回的上传成功后的图片地址
-			resolve({
-			  default: url
-			})
-		  }
-		}).catch(error => {
-		  reject(error)
-		})
-	  }))
-	}
-	abort() {
-	}
+import axios from "axios";
+
+/**
+ * 自定义上传图片插件
+ */
+class MyUploadAdapter {
+  constructor(loader) {
+    this.loader = loader;
   }
-  
+
+  async upload() {
+    const data = new FormData();
+    data.append("img", await this.loader.file);
+
+    const res = await axios({
+      url: `/api/upload/img`,
+      method: "POST",
+      data,
+      withCredentials: true // true 为不允许带 token, false 为允许
+    });
+    return {
+      default: res.data.data.url
+    };
+  }
+}
+
+export default MyUploadAdapter;
