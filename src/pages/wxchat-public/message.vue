@@ -67,7 +67,6 @@ export default {
         );
       editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
         return new UploadAdapter(loader);
-        
       };
     },
   },
