@@ -11,18 +11,17 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"example.com/mod/cache"
+	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
+	"github.com/nfnt/resize"
+	"image/jpeg"
 	"log"
+	"os"
 	"path"
 	"time"
 )
 
 func Img(c *gin.Context) {
-	//err = c.SaveUploadedFile(file, "./media/upload/user/"+filename)
-	//if err != nil {
-	//	log.Panicln("无法保存文件")
-	//	return
-	//}
 	token, _ := c.Request.Cookie("token")
 	cache.RedisInit()
 	useranme, _ := c.Request.Cookie("pad")
@@ -54,6 +53,27 @@ func Img(c *gin.Context) {
 		log.Panicln("无法保存文件")
 		return
 	}
+	go func() {
+		file, _ := os.Open("./media/upload/img/" + filename)
+		img, _ := jpeg.Decode(file)
+		file.Close()
+		img = resize.Resize(800, 0, img, resize.NearestNeighbor)
+		out, _ := os.Create("./media/upload/img/" + filename)
+		defer out.Close()
+		jpeg.Encode(out, img, nil)
+		log.Print("图片上传压缩成功")
+	}()
+	go func() {
+		models.InitMysqlDB()
+		var db = models.DB
+		var img models.Upload
+		img.Name = "img"
+		img.Size = file.Size
+		img.Path = "/api/get/upload/img/" + filename
+		img.Type = "图片"
+		db.Create(&img)
+		log.Print("保存数据库成功")
+	}()
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "上传成功",

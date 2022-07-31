@@ -16,7 +16,7 @@ func InitMysqlDB() {
 		fmt.Println("数据库连接失败")
 	}
 	DB = db
-	err = DB.AutoMigrate(&UserRole{}, &User{}, &Emial{})
+	err = DB.AutoMigrate(&UserRole{}, &User{}, &Emial{}, &Upload{})
 	if err != nil {
 		fmt.Println("用户表创建失败")
 		return

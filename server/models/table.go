@@ -38,3 +38,13 @@ type Menu struct {
 	ParentId int    //父级菜单
 	Role     string //用户角色
 }
+
+type Upload struct {
+	Id        int       `primaryKey:"true"`
+	Name      string    //文件名称
+	Path      string    `json:"path"`                       //文件路径
+	Size      int64     `json:"size"`                       //文件大小
+	Type      string    `json:"type"`                       //文件类型
+	CreatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 创建时间
+	UpdatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 更新时间
+}

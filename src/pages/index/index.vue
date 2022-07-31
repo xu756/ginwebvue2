@@ -21,7 +21,7 @@
           </el-menu-item>
         </el-submenu>
         <el-menu-item index="/user/info">
-          <i class="iconfont icon-yonghuguanli_huaban"></i>
+          <i class="iconfont icon-yonghu"></i>
           <span>个人信息</span>
         </el-menu-item>
       </el-menu>
