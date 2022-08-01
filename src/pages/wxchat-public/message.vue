@@ -1,7 +1,7 @@
 <template>
     <div>
       微信公众号消息
-      <ckeditor :editorData="container" ></ckeditor>
+      <ckeditor  @getdata="getData"></ckeditor>
     </div>
 </template>
 
@@ -13,8 +13,18 @@ export default {
   },
   data() {
     return {
-      container: "8585",
+      container: "<p>Hello World!</p>",
     };
+  },
+  methods: {
+    getData(data) {
+      this.container = data;
+    },
+  },
+  watch: {
+    container(val) {
+      console.log(val);
+    },
   },
 }
 </script>

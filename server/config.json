@@ -1,8 +1,15 @@
 {
   "redis": {
-    "addr": "121.5.132.57:6700",
+    "addr": "127.0.0.1:6700",
     "password": "123456",
-    "db": 3
+    "db": 2
+  },
+  "mysql": {
+    "addr": "127.0.0.1",
+    "port": 5700,
+    "user": "xu",
+    "password": "xjx756756",
+    "db": "ginvue2"
   },
   "email": {
     "host": "smtp.163.com",

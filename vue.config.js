@@ -15,7 +15,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://localhost:7000/api/",
+        target: "https://cs.xu756.top/api/",
         changeOrigin: true, // 允许跨域
         pathRewrite: {
           "^/api": ""

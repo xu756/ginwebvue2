@@ -1,7 +1,7 @@
 <template>
   <ckeditor
     :editor="editor"
-    v-model="editorData"
+    v-model="Data"
     :config="editorConfig"
     @ready="onReady"
   ></ckeditor>
@@ -13,6 +13,7 @@ import UploadAdapter from "@/plugin/upload.js";
 export default {
   data() {
     return {
+      Data: "<p>Hello World!</p>",
       editor: DecoupledEditor, // 编辑器实例
       editorConfig: {
         language: "zh-cn", // 中文
@@ -56,8 +57,15 @@ export default {
   props: {
     editorData: {
       type: String,
-      default: "<p>Hello World!</p>",
-    
+      default: "<p>在这里输入文字....</p>",
+    },
+  },
+  mounted() {
+    this.Data = this.editorData;
+  },
+  watch: {
+    'Data'(val) {     // 当Data变化时，触发该函数
+      this.$emit('getdata', val);
     },
   },
   methods: {
@@ -72,7 +80,6 @@ export default {
         return new UploadAdapter(loader);
       };
       // 添加插件
-      
     },
   },
 };
