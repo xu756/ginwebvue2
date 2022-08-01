@@ -12,6 +12,15 @@ type redisConfig struct {
 	Db       int    `json:"db"`
 }
 
+// Mysql 配置
+type mysqlConfig struct {
+	Addr     string `json:"mysql"`
+	Port     int    `json:"port"`
+	User     string `json:"user"`
+	Password string `json:"password"`
+	Db       string `json:"db"`
+}
+
 // 发送邮件配置
 type emailConfig struct {
 	Host     string `json:"host"`     // smtp服务器地址

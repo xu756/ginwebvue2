@@ -16,6 +16,8 @@ import (
 type Data struct {
 	// Redis 配置
 	Redis redisConfig `json:"redis"`
+	// Mysql 配置
+	Mysql mysqlConfig `json:"mysql"`
 	// 发送邮件配置
 	Email emailConfig `json:"email"`
 }
