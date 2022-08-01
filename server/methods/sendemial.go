@@ -17,7 +17,7 @@ func SendEmail(e *EmailTo) bool {
 	// 创建一个发送邮件的对象
 	msg := gomail.NewMessage()
 	// 设置发件人
-	msg.SetHeader("From", msg.FormatAddress(config.InitData.Email.Host, config.InitData.Email.Username))
+	msg.SetHeader("From", msg.FormatAddress(config.InitData.Email.From, config.InitData.Email.Username))
 	// 设置收件人
 	msg.SetHeader("To", e.To)
 	// 设置主题
@@ -28,7 +28,7 @@ func SendEmail(e *EmailTo) bool {
 	d := gomail.NewDialer(config.InitData.Email.Host, config.InitData.Email.Port, config.InitData.Email.From, config.InitData.Email.Password)
 	// 发送邮件
 	if err := d.DialAndSend(msg); err != nil {
-		println("发送邮件失败")
+		println("发送邮件失败", err.Error())
 		return false
 	}
 	var db = models.DB
