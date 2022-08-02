@@ -18,7 +18,6 @@ import (
 
 func Login(c *gin.Context) {
 	models.InitMysqlDB()
-	cache.RedisInit()
 	var db = models.DB
 	data := make(map[string]interface{}) // 定义一个map 存储客户端数据
 	err := c.BindJSON(&data)             // 获取客户端数据
@@ -70,7 +69,6 @@ func Register1(c *gin.Context) {
 	data := make(map[string]interface{})
 	c.BindJSON(&data)
 	models.InitMysqlDB()
-	cache.RedisInit()
 	var db = models.DB
 	var user models.User
 	db.Where("user_name = ?", data["username"]).Find(&user)
@@ -113,7 +111,6 @@ func Register1(c *gin.Context) {
 func Register2(c *gin.Context) {
 	data := make(map[string]interface{})
 	c.BindJSON(&data)
-	cache.RedisInit()
 	randStr := data["randStr"].(string)
 	code := data["code"].(string)
 	if cache.Get(randStr) != code {
@@ -159,7 +156,6 @@ func Register2(c *gin.Context) {
 func IsLogin(c *gin.Context) {
 
 	token := c.GetHeader("token")
-	cache.RedisInit()
 	useranme := c.GetHeader("username")
 	if cache.Get(useranme) != token {
 		c.JSON(200, gin.H{

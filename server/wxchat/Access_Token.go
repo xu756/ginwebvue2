@@ -20,19 +20,19 @@ func GetAccessTokenRouter(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"access_token": GetAccessToken(),
+		"admin":        cache.Exists("admin"),
 	})
 }
 
 func GetAccessToken() string {
-	cache.RedisInit()
 	if cache.Exists("access_token") {
-		//获取access_token
-		accessToken := GetAccessTokenFromWx()
-		//缓存access_token
-		cache.Set("access_token", accessToken, 7200)
-		return accessToken
+		return cache.Get("access_token").(string)
 	}
-	return cache.Get("access_token").(string)
+	//获取access_token
+	accessToken := GetAccessTokenFromWx()
+	//缓存access_token
+	cache.Set("access_token", accessToken, 60*60*2)
+	return accessToken
 }
 
 type AccessToken struct {

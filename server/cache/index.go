@@ -28,6 +28,7 @@ func RedisInit() {
 
 // Set 封装redis的set方法
 func Set(key string, value interface{}, timeout int) {
+	RedisInit()
 	Del(key)
 	err := RedisClient.Set(ctx, key, value, time.Duration(timeout)*time.Second).Err()
 	if err != nil {
@@ -38,6 +39,7 @@ func Set(key string, value interface{}, timeout int) {
 
 // Get 封装redis的get方法
 func Get(key string) interface{} {
+	RedisInit()
 	val, err := RedisClient.Get(ctx, key).Result()
 	if err != nil {
 		fmt.Println("缓存错误", err)
@@ -48,16 +50,18 @@ func Get(key string) interface{} {
 
 // Exists Exists 封装redis的exists方法
 func Exists(key string) bool {
-	_, err := RedisClient.Exists(ctx, key).Result()
-	if err != nil {
-		fmt.Println("缓存错误")
-		return false
+	RedisInit()
+	res, _ := RedisClient.Exists(ctx, key).Result()
+	if res == 1 {
+		return true
+
 	}
-	return true
+	return false
 }
 
 // Del 封装redis的del方法
 func Del(key string) {
+	RedisInit()
 	err := RedisClient.Del(ctx, key).Err()
 	if err != nil {
 		fmt.Println("缓存错误")
