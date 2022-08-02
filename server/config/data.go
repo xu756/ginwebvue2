@@ -1,10 +1,5 @@
 package config
 
-func Config() {
-	CreateDir("./media/upload/user") // 创建用户头像文件夹·
-	CreateDir("./media/upload/img")  // 创建文章图片文件夹·
-}
-
 // Redis 配置
 type redisConfig struct {
 	Addr     string `json:"addr"`
@@ -29,4 +24,12 @@ type emailConfig struct {
 	From     string `json:"from"`     // 发件人地址
 	Password string `json:"password"` // 邮箱密钥
 
+}
+
+// 微信公众号配置
+type wxchatConfig struct {
+	AppID          string `json:"appid"`          // 公众号appid
+	AppSecret      string `json:"appsecret"`      // 应用密钥
+	Token          string `json:"token"`          // 公众号token
+	EncodingAESKey string `json:"encodingaeskey"` // 加解密密钥
 }

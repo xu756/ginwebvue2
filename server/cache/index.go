@@ -46,6 +46,16 @@ func Get(key string) interface{} {
 	return val
 }
 
+// Exists Exists 封装redis的exists方法
+func Exists(key string) bool {
+	_, err := RedisClient.Exists(ctx, key).Result()
+	if err != nil {
+		fmt.Println("缓存错误")
+		return false
+	}
+	return true
+}
+
 // Del 封装redis的del方法
 func Del(key string) {
 	err := RedisClient.Del(ctx, key).Err()

@@ -20,11 +20,15 @@ type Data struct {
 	Mysql mysqlConfig `json:"mysql"`
 	// 发送邮件配置
 	Email emailConfig `json:"email"`
+	// 微信公众号配置
+	Wxcgzh wxchatConfig `json:"wxchat"`
 }
 
 var InitData Data
 
-func init() {
+func Config() {
+	CreateDir("./media/upload/user") // 创建用户头像文件夹·
+	CreateDir("./media/upload/img")  // 创建文章图片文件夹·
 	file, err := os.Open("./config.json")
 	if err != nil {
 		fmt.Printf("文件打开失败 [Err:%s]\n", err.Error())

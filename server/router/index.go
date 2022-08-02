@@ -21,6 +21,7 @@ func InitRouter() {
 		)
 	})
 	UserRouter(r)                                            // 用户模块
+	Wx(r)                                                    // 微信模块
 	r.POST("api/upload/img", upload.Img)                     // 上传图片
 	r.StaticFS("api/get/upload", http.Dir("./media/upload")) // 静态文件
 	r.SetTrustedProxies([]string{"127.0.0.1"})               //设置代理

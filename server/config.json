@@ -17,5 +17,11 @@
     "username": "阿新网",
     "from": "xu756top@163.com",
     "password": "CZVXGXVNKUIXNDHX"
+  },
+  "wxchat": {
+    "appid": "wxfeae04a245c7e674",
+    "appsecret": "d2168a843a41fa2d2e164015cfee21fe",
+    "token": "this_token",
+    "encodingaeskey": "DhLn7Ee59p5ziBbMch9Ip5599i6mInmC6S654D2ihk6"
   }
 }
