@@ -17,10 +17,8 @@ import (
 )
 
 func GetAccessTokenRouter(c *gin.Context) {
-
 	c.JSON(200, gin.H{
 		"access_token": GetAccessToken(),
-		"admin":        cache.Exists("admin"),
 	})
 }
 

@@ -15,6 +15,7 @@ import (
 func Wx(r *gin.Engine) *gin.Engine {
 	rr := r.Group("/api/wx/") // web管理路由
 	rr.GET("/token", wxchat.VerifyRouter)
+	rr.POST("/token", wxchat.Receive)
 	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter)
 	return r
 }
