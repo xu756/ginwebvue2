@@ -7,7 +7,8 @@ import "@/assets/icon/iconfont.css";
 import "./plugin/element.js";
 Vue.config.productionTip = false;
 //axios
-import post from "./plugin/axios.js";
+import {get,post} from "./plugin/axios.js";
+Vue.prototype.$get = get;
 Vue.prototype.$post = post; // 将axios挂载到Vue的原型上，这样所有的组件都可以使用this.$http访问到axios
 // js-md5 加密
 import md5 from "js-md5";

@@ -47,12 +47,9 @@ export default {
   },
   methods: {
     isuer() {
-      this.$post("IsLogin").then((res) => {
-        if (!res.is) {
-          this.$router.push("/login");
-        }
-      });
+      this.$post("IsLogin")
     },
   },
 };
 </script>
+ 
