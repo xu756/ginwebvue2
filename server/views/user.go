@@ -159,16 +159,14 @@ func IsLogin(c *gin.Context) {
 	useranme := c.GetHeader("username")
 	if cache.Get(useranme) != token {
 		c.JSON(200, gin.H{
-			"type": "error",
+			"type": "loginout",
 			"msg":  "未登录",
-			"is":   false,
 		})
 		return
 	}
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "已登录",
-		"is":   true,
 	})
 	return
 }

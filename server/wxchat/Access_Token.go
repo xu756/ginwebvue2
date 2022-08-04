@@ -18,7 +18,9 @@ import (
 
 func GetAccessTokenRouter(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"access_token": GetAccessToken(),
+		"type": "success",
+		"msg":  "获取access_token成功",
+		"data": GetAccessToken(),
 	})
 }
 
