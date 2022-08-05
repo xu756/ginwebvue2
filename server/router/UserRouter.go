@@ -14,4 +14,5 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.POST("/IsLogin", views.IsLogin)
 	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter)
 	return r
+
 }
