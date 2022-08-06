@@ -1,15 +1,12 @@
 <template>
-  <div>微信公众号菜单</div>
+  <div id="Main">
+    <h1>自定义菜单</h1>
+  </div>
 </template>
+
 <script>
-export default {
-  data() {
-    return {};
-  },
-  mounted() {
-    this.$get("getAccessToken").then((res) => {
-      console.log(res);
-    });
-  },
-};
+export default {};
 </script>
+
+<style lang="scss" scoped>
+</style>>

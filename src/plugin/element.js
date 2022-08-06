@@ -21,7 +21,8 @@ import {
 	Table,
 	TableColumn,
 	Upload,
-
+	Radio,
+	RadioGroup,
 } from 'element-ui';
 Vue.use(Button);
 Vue.use(Form);
@@ -40,4 +41,6 @@ Vue.use(Submenu);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Upload);
+Vue.use(Radio);
+Vue.use(RadioGroup);
 Vue.prototype.$message = Message;

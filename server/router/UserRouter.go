@@ -13,6 +13,7 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.POST("/register2", views.Register2)
 	rr.POST("/IsLogin", views.IsLogin)
 	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter)
+	rr.POST("/getmenu", wxchat.GetMenuRouter)
 	return r
 
 }
