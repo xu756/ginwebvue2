@@ -8,13 +8,17 @@
 package upload
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"example.com/mod/cache"
 	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
 	"github.com/nfnt/resize"
+	"image"
 	"image/jpeg"
+	"image/png"
+	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -55,12 +59,24 @@ func Img(c *gin.Context) {
 	}
 	go func() {
 		file, _ := os.Open("./media/upload/img/" + filename)
-		img, _ := jpeg.Decode(file)
-		file.Close()
-		img = resize.Resize(800, 0, img, resize.NearestNeighbor)
-		out, _ := os.Create("./media/upload/img/" + filename)
-		defer out.Close()
-		jpeg.Encode(out, img, nil)
+		img, layout, _ := image.Decode(file)              // 解码图片
+		img = resize.Resize(800, 0, img, resize.Lanczos3) // 压缩图片
+		newImg := bytes.Buffer{}                          // 创建一个缓冲区
+		switch layout {
+		// 判断图片格式
+		case "jpeg", "jpg":
+			err = jpeg.Encode(&newImg, img, nil) // 将图片编码为jpeg格式
+		case "png":
+			err = png.Encode(&newImg, img)
+		default:
+			err = jpeg.Encode(&newImg, img, nil)
+		}
+		if err != nil {
+			log.Panicln("无法保存文件")
+			return
+		}
+		// 保存文件
+		err = ioutil.WriteFile("./media/upload/img/"+filename, newImg.Bytes(), 0666)
 		log.Print("图片上传压缩成功")
 	}()
 	go func() {
