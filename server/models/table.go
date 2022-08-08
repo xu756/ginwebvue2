@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type UserRole struct {
 	ID       int    `gorm:"primary_key"`
@@ -34,8 +37,8 @@ type Menu struct {
 	Id       int    `primaryKey:"true"`
 	Name     string //菜单名称
 	Path     string //页面路径
-	Icon     string
-	ParentId int    //父级菜单
+	Icon     string //图标
+	ParentId int    `gorm:"default:0"` //父级菜单ID
 	Role     string //用户角色
 }
 
@@ -47,4 +50,27 @@ type Upload struct {
 	Type      string    `json:"type"`                       //文件类型
 	CreatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 创建时间
 	UpdatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 更新时间
+}
+
+// ArticleCategory 文章类型
+type ArticleCategory struct {
+	Id       int       `primaryKey:"true"`
+	Name     string    `gorm:"index;type:varchar(100)"`
+	Category []Article `gorm:"foreignKey:Category;references:Name"` //文章分类
+}
+type ArticleTag struct {
+	Id   int       `primaryKey:"true"`
+	Name string    `gorm:"index;type:varchar(100)"`
+	Tag  []Article `gorm:"foreignKey:Tag;references:Name"` //文章标签
+}
+
+// Article 文章
+type Article struct {
+	gorm.Model
+	Name     string `gorm:"type:varchar(100)"`
+	Path     string `gorm:"type:varchar(100)"`                //文件路径
+	Type     string `gorm:"type:varchar(100)"`                //文件类型
+	Tag      string `gorm:"type:varchar(100);default:'默认标签'"` //文章标签
+	Category string `gorm:"type:varchar(100);default:'默认分类'"` //文章分类
+	Contain  string `gorm:"type:varchar(100)"`                //文章内容
 }

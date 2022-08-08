@@ -170,3 +170,13 @@ func IsLogin(c *gin.Context) {
 	})
 	return
 }
+
+func Logout(c *gin.Context) {
+	useranme := c.GetHeader("username")
+	cache.Del(useranme)
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "退出成功",
+	})
+	return
+}

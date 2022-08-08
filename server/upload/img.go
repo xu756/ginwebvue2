@@ -80,7 +80,6 @@ func Img(c *gin.Context) {
 		log.Print("图片上传压缩成功")
 	}()
 	go func() {
-		models.InitMysqlDB()
 		var db = models.DB
 		var img models.Upload
 		img.Name = "img"
