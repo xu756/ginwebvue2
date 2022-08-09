@@ -2,28 +2,26 @@
   <el-container>
     <el-aside width="200px">
       <el-menu :default-active="defaultactive" unique-opened router>
-        <el-menu-item index="/home">
-          <i class="iconfont icon-home1"></i>
-          <span>首页</span>
-        </el-menu-item>
-        <el-submenu index="/WxchatPublic">
-          <template #title>
-            <i class="iconfont icon-gongzhonghaoguanli"></i>
-            <span>公众号</span>
-          </template>
-          <el-menu-item index="/WxchatPublic/menu">
-            <i class="iconfont icon-caidan"></i>
-            <span>自定义菜单</span>
-          </el-menu-item>
-          <el-menu-item index="/WxchatPublic/message">
-            <i class="iconfont icon-xiaoxitongzhi"></i>
-            <span>消息回复</span>
-          </el-menu-item>
-        </el-submenu>
-        <el-menu-item index="/user/info">
-          <i class="iconfont icon-yonghu"></i>
-          <span>个人信息</span>
-        </el-menu-item>
+        <div v-for="item in menus" :key="item.name">
+          <el-menu-item v-if="item.subMenu == null" :index="item.path"
+            ><i :class="'iconfont ' + item.icon"></i>
+            <span>{{ item.name }}</span></el-menu-item
+          >
+          <el-submenu :index="item.path" v-else>
+            <template slot="title">
+              <i :class="'iconfont ' + item.icon"></i>
+              <span>{{ item.name }}</span>
+            </template>
+            <el-menu-item
+              v-for="subitem in item.subMenu"
+              :key="subitem.id"
+              :index="subitem.path"
+            >
+              <i :class="'iconfont ' + subitem.icon"></i>
+              <span>{{ subitem.name }}</span>
+            </el-menu-item>
+          </el-submenu>
+        </div>
       </el-menu>
     </el-aside>
     <el-container>
@@ -38,16 +36,24 @@ export default {
   data() {
     return {
       defaultactive: "/",
-      loading: true,
+      menus: [],
     };
   },
   mounted() {
     this.isuer();
     this.defaultactive = this.$route.path;
+    this.Getdefault();
   },
   methods: {
     isuer() {
-      this.$post("IsLogin")
+      this.$post("IsLogin");
+    },
+    Getdefault() {
+      this.$post("default")
+        .then((result) => {
+          this.menus = result.data.Menu;
+        })
+        .catch((err) => {});
     },
   },
 };
