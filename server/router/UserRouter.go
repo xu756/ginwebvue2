@@ -7,13 +7,14 @@ import (
 )
 
 func UserRouter(r *gin.Engine) *gin.Engine {
-	rr := r.Group("/api/vue2/user/") // web管理路由
-	rr.POST("/login", views.Login)
-	rr.POST("/register1", views.Register1)
-	rr.POST("/register2", views.Register2)
-	rr.POST("/IsLogin", views.IsLogin)
-	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter)
-	rr.POST("/getmenu", wxchat.GetMenuRouter)
+	rr := r.Group("/api/vue2/user/")                       // web管理路由
+	rr.POST("/login", views.Login)                         // 登录
+	rr.POST("/register1", views.Register1)                 // 注册
+	rr.POST("/register2", views.Register2)                 // 注册
+	rr.POST("/IsLogin", views.IsLogin)                     // 判断是否登录
+	rr.POST("/default", views.Default)                     // 获取默认信息，包括菜单，权限等
+	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter) // 获取access_token
+	rr.GET("/getmenu", wxchat.GetMenuRouter)               // 获取公众号菜单
 
 	return r
 

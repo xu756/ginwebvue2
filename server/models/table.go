@@ -9,6 +9,7 @@ type UserRole struct {
 	ID       int    `gorm:"primary_key"`
 	RoleName string `gorm:"index;type:varchar(100)"`
 	Role     []User `gorm:"foreignKey:Role;references:RoleName"`
+	RoleMenu []Menu `gorm:"foreignKey:Role;references:RoleName"`
 }
 
 type User struct {
