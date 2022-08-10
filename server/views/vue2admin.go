@@ -80,7 +80,56 @@ func Default(c *gin.Context) {
 	Data.User = user
 	c.JSON(200, gin.H{
 		"type": "success",
-		"msg":  "获取菜单成功",
+		"msg":  "获取数据成功",
 		"data": Data,
+	})
+}
+
+func GetMenu(c *gin.Context) {
+	models.InitMysqlDB()
+	token := c.GetHeader("token")
+	var db = models.DB
+	var user models.User
+	var menus []models.Menu
+	db.Where("token = ?", token).First(&user)
+	if user.Id == 0 || user.Role != 3 {
+		c.JSON(200, gin.H{
+			"type": "loginout",
+			"msg":  "请重新登录",
+		})
+		return
+	}
+	db.Where("role <= ?", user.Role).Find(&menus)
+	// 遍历菜单，获取子菜单
+	var MenuData []Menu
+	for _, menu := range menus {
+		if menu.ParentId == 0 {
+			var sub []SubMenu
+			var pId = menu.Id
+			for _, menu := range menus {
+				if menu.ParentId == pId {
+					sub = append(sub, SubMenu{
+						Id:       menu.Id,
+						Name:     menu.Name,
+						Path:     menu.Path,
+						Icon:     menu.Icon,
+						ParentId: menu.ParentId,
+					})
+				}
+			}
+			MenuData = append(MenuData, Menu{
+				Id:       menu.Id,
+				Name:     menu.Name,
+				Path:     menu.Path,
+				Icon:     menu.Icon,
+				ParentId: menu.ParentId,
+				SubMenu:  sub,
+			})
+		}
+	}
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "获取菜单成功",
+		"data": MenuData,
 	})
 }

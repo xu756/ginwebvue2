@@ -13,31 +13,37 @@ const routes = [
       {
         path: "/home",
         name: "home",
+        title: "首页",
         component: () => import("@/pages/home/home.vue")
       },
       {
         path: "/WxchatPublic",
         name: "WxchatPublic",
+        title:"微信公众号",
         component: () => import("@/pages/wxchat-public/index.vue")
       },
       {
         path: "/WxchatPublic/menu",
         name: "WxchatPublicMenu",
+        title:"微信公众号菜单",
         component: () => import("@/pages/wxchat-public/menu.vue")
       },
       {
         path: "/WxchatPublic/message",
         name: "WxchatPublicMessage",
+        title:"微信公众号消息",
         component: () => import("@/pages/wxchat-public/message.vue")
       },
       {
         path: "/admin/menu",
         name: "adminMenu",
+        title:"面板菜单",
         component: () => import("@/pages/admin/menu.vue")
       },
       {
         path: "/admin/user",
         name: "adminUser",
+        title:"面板用户",
         component: () => import("@/pages/admin/user.vue")
       }
     ]

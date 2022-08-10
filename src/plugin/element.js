@@ -1,29 +1,29 @@
 // 按需引入 Element 模块
 
-import Vue from 'vue';
-import 'element-ui/lib/theme-chalk/base.css';
+import Vue from "vue";
+import "element-ui/lib/theme-chalk/base.css";
 import {
-	Button,
-	Message,
-	Form,
-	FormItem,
-	Input,
-	Col,
-	Row,
-	Container,
-	Header,
-	Aside,
-	Main,
-	Menu,
-	MenuItem,
-	MenuItemGroup,
-    Submenu,
-	Table,
-	TableColumn,
-	Upload,
-	Radio,
-	RadioGroup,
-} from 'element-ui';
+  Button,
+  Message,
+  Form,
+  FormItem,
+  Input,
+  Col,
+  Row,
+  Container,
+  Header,
+  Aside,
+  Main,
+  Menu,
+  MenuItem,
+  MenuItemGroup,
+  Submenu,
+  Table,
+  TableColumn,
+  Upload,
+  Tabs,
+  TabPane
+} from "element-ui";
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
@@ -41,6 +41,6 @@ Vue.use(Submenu);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Upload);
-Vue.use(Radio);
-Vue.use(RadioGroup);
+Vue.use(Tabs);
+Vue.use(TabPane);
 Vue.prototype.$message = Message;

@@ -94,12 +94,11 @@ export function post(url, data = {}) {
           router.push("/login");
           return;
         }
-        if (res.type === "scuess") {
+        if (res.type === "success") {
           Message({
             message: res.msg,
             type: "success"
           });
-          return;
         }
         resolve(res);
       },
@@ -128,12 +127,11 @@ export function get(url, data = {}) {
           router.push("/login");
           return;
         }
-        if (res.type === "scuess") {
+        if (res.type === "success") {
           Message({
             message: res.msg,
             type: "success"
           });
-          return;
         }
         resolve(res);
       },

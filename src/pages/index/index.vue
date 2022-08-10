@@ -32,7 +32,6 @@
 </template>
 <script>
 export default {
-  name: "Login",
   data() {
     return {
       defaultactive: "/",
@@ -40,7 +39,7 @@ export default {
     };
   },
   mounted() {
-    this.isuer();
+    // this.isuer();
     this.defaultactive = this.$route.path;
     this.Getdefault();
   },
@@ -49,11 +48,9 @@ export default {
       this.$post("IsLogin");
     },
     Getdefault() {
-      this.$post("default")
-        .then((result) => {
-          this.menus = result.data.Menu;
-        })
-        .catch((err) => {});
+      this.$post("default").then((result) => {
+        this.menus = result.data.Menu;
+      });
     },
   },
 };
