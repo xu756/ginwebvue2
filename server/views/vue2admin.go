@@ -49,7 +49,7 @@ func Default(c *gin.Context) {
 		return
 	}
 	role := user.Role
-	db.Where("role = ?", role).Find(&menus)
+	db.Where("role <= ?", role).Find(&menus)
 	// 遍历菜单，获取子菜单
 	var Data DefaultData
 	for _, menu := range menus {

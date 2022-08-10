@@ -8,8 +8,8 @@ import (
 type UserRole struct {
 	ID       int    `gorm:"primary_key"`
 	RoleName string `gorm:"index;type:varchar(100)"`
-	Role     []User `gorm:"foreignKey:Role;references:RoleName"`
-	RoleMenu []Menu `gorm:"foreignKey:Role;references:RoleName"`
+	RoleUser []User `gorm:"foreignKey:Role;references:ID"`
+	RoleMenu []Menu `gorm:"foreignKey:Role;references:ID"`
 }
 
 type User struct {
@@ -20,10 +20,10 @@ type User struct {
 	Emial        string    `gorm:"type:varchar(100);"`             // 邮箱
 	Token        string    `gorm:"type:varchar(256)"`              // token
 	Verification string    `gorm:"type:varchar(100)"`              // 邮箱发送的验证码
-	Role         string    `gorm:"type:varchar(100);default:'用户'"` // 角色
-	Frequency    int       `gorm:"type:int(255)"`                  // 访问频率
-	CreatedAt    time.Time `time_format:"2006-01-02 15:04:05"`     // 创建时间
-	UpdatedAt    time.Time `time_format:"2006-01-02 15:04:05"`     // 更新时间
+	Role         uint      // 角色ID
+	Frequency    int       `gorm:"type:int(255)"`              // 访问频率
+	CreatedAt    time.Time `time_format:"2006-01-02 15:04:05"` // 创建时间
+	UpdatedAt    time.Time `time_format:"2006-01-02 15:04:05"` // 更新时间
 }
 
 type Emial struct {
@@ -40,7 +40,7 @@ type Menu struct {
 	Path     string //页面路径
 	Icon     string //图标
 	ParentId int    `gorm:"default:0"` //父级菜单ID
-	Role     string //用户角色
+	Role     uint   //角色
 }
 
 type Upload struct {

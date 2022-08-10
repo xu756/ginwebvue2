@@ -131,7 +131,7 @@ func Register2(c *gin.Context) {
 	var user models.User
 	user.UserName = data["username"].(string)
 	user.Password = data["password"].(string)
-	user.Role = "用户"
+	user.Role = 1
 	user.Emial = data["email"].(string)
 	//生成token
 	h = sha512.New()
