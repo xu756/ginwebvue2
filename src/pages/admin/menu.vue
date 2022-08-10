@@ -21,6 +21,24 @@
           <i :class="'iconfont ' + scope.row.icon"></i>
         </template>
       </el-table-column>
+      <el-table-column label="编辑">
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            type="text"
+            size="mini"
+            @click="handleDelete(scope.$index, scope.row)"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -41,6 +59,12 @@ export default {
         console.log(data);
         this.menus = data;
       });
+    },
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
     },
   },
 };
