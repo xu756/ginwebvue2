@@ -23,19 +23,11 @@
       </el-table-column>
       <el-table-column label="编辑">
         <template slot-scope="scope">
-          <el-button
-            type="text"
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
-          >
+          <el-button type="text" size="mini" @click="handleEdit(scope.row)">
             编辑
           </el-button>
-          
-          <el-button
-            type="text"
-            size="mini"
-            @click="handleDelete(scope.$index, scope.row)"
-          >
+
+          <el-button type="text" size="mini" @click="handleDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -57,15 +49,14 @@ export default {
   methods: {
     getMenus() {
       this.$get("/get/menu").then(({ data }) => {
-        console.log(data);
         this.menus = data;
       });
     },
-    handleEdit(index, row) {
-      console.log(index, row);
+    handleEdit(row) {
+      console.log(row);
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    handleDelete(row) {
+      console.log(row);
     },
   },
 };

@@ -10,6 +10,7 @@ type UserRole struct {
 	RoleName string `gorm:"index;type:varchar(100)"`
 	RoleUser []User `gorm:"foreignKey:Role;references:ID"`
 	RoleMenu []Menu `gorm:"foreignKey:Role;references:ID"`
+	RoleLogs []Log  `gorm:"foreignKey:Role;references:ID"`
 }
 
 type User struct {
@@ -51,6 +52,18 @@ type Upload struct {
 	Type      string    `json:"type"`                       //文件类型
 	CreatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 创建时间
 	UpdatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 更新时间
+}
+
+// Log 日志表
+type Log struct {
+	Id        int       `primaryKey:"true"`
+	User      string    //用户名
+	UserId    int       //用户ID
+	Role      uint      //角色
+	Catetory  string    //日志类型  登录、操作、异常
+	Type      string    //日志类型
+	Content   string    //日志内容
+	CreatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 创建时间
 }
 
 // ArticleCategory 文章类型

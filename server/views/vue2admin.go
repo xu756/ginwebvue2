@@ -8,6 +8,7 @@
 package views
 
 import (
+	"example.com/mod/logs"
 	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
 )
@@ -131,5 +132,37 @@ func GetMenu(c *gin.Context) {
 		"type": "success",
 		"msg":  "获取菜单成功",
 		"data": MenuData,
+	})
+}
+
+func UploadMenu(c *gin.Context) {
+	models.InitMysqlDB()
+	token := c.GetHeader("token")
+	var db = models.DB
+	var user models.User
+	db.Where("token = ?", token).First(&user)
+	if user.Id == 0 || user.Role != 3 {
+		c.JSON(200, gin.H{
+			"type": "loginout",
+			"msg":  "请重新登录",
+		})
+		return
+	}
+	var menu models.Menu
+	c.BindJSON(&menu)
+	db.Create(&menu)
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "添加菜单成功",
+	})
+}
+
+func GetLogs(c *gin.Context) {
+	logs.Logs(logs.LogData{
+		User:     "admin",
+		Role:     1,
+		Category: "获取logs",
+		Type:     "普通",
+		Content:  "",
 	})
 }
