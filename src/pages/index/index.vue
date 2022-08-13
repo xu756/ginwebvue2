@@ -54,19 +54,22 @@
                 </el-tooltip>
               </el-col>
 
-              <el-col :span="3">
+              <el-col :span="3" @click.native="fullscreen">
                 <el-tooltip
                   class="item"
                   effect="light"
                   content="全屏"
                   placement="bottom"
                 >
-                  <svg class="icon" aria-hidden="true" @click="fullscreen">
+                  <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-quanping"></use>
                   </svg>
                 </el-tooltip>
               </el-col>
-              <el-col :span="2">
+              <el-col
+                :span="2"
+                @click.native="go('https://github.com/xu756/ginwebvue2')"
+              >
                 <el-tooltip
                   class="item"
                   effect="light"
@@ -84,7 +87,11 @@
                     <el-avatar
                       :size="30"
                       style="float: left"
-                      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                      :src="
+                        user.portrait
+                          ? user.portrait
+                          : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+                      "
                     ></el-avatar>
                     <div
                       style="
@@ -103,13 +110,13 @@
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-yonghu"></use>
                       </svg>
-                      <span>个人中心</span>
+                      <span @click="go('/admin/menu')">个人中心</span>
                     </el-dropdown-item>
                     <el-dropdown-item>
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-tuichu"></use>
                       </svg>
-                      <span>退出登录</span>
+                      <span @click="logout">退出登录</span>
                     </el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown></el-col
@@ -155,7 +162,6 @@ export default {
     logout() {
       this.$post("logout")
         .then((result) => {
-          this.$message.success(result.message);
           this.$cookies.remove("token");
           this.$router.push("/login");
         })
@@ -166,6 +172,15 @@ export default {
     // 全屏
     fullscreen() {
       screenfull.toggle();
+    },
+    // 跳转页面
+    go(path) {
+      // 判断有没有http
+      if (path.indexOf("http") == -1) {
+        this.$router.push(path);
+      } else {
+        window.open(path);
+      }
     },
   },
 };
