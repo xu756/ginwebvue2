@@ -4,7 +4,9 @@
       <el-menu :default-active="defaultactive" unique-opened router>
         <div v-for="item in menus" :key="item.name">
           <el-menu-item v-if="item.subMenu == null" :index="item.path"
-            ><i :class="'iconfont ' + item.icon"></i>
+            ><svg class="icon" aria-hidden="true">
+              <use :xlink:href="'#' + item.icon"></use>
+            </svg>
             <span>{{ item.name }}</span></el-menu-item
           >
           <el-submenu :index="item.path" v-else>
@@ -17,7 +19,9 @@
               :key="subitem.id"
               :index="subitem.path"
             >
-              <i :class="'iconfont ' + subitem.icon"></i>
+              <svg class="icon" aria-hidden="true">
+                <use :xlink:href="'#' + subitem.icon"></use>
+              </svg>
               <span>{{ subitem.name }}</span>
             </el-menu-item>
           </el-submenu>
@@ -25,21 +29,111 @@
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <el-row>
+          <el-col :span="8">左边</el-col>
+          <el-col :span="5" :push="11">
+            <el-row
+              style="
+                padding: 12px 0;
+                line-height: 36px;
+                display: flex;
+                justify-content: end;
+              "
+            >
+              <el-col :span="3">
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="搜索"
+                  placement="bottom"
+                >
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-sousuo"></use>
+                  </svg>
+                </el-tooltip>
+              </el-col>
+
+              <el-col :span="3">
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="全屏"
+                  placement="bottom"
+                >
+                  <svg class="icon" aria-hidden="true" @click="fullscreen">
+                    <use xlink:href="#icon-quanping"></use>
+                  </svg>
+                </el-tooltip>
+              </el-col>
+              <el-col :span="2">
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="源代码地址"
+                  placement="bottom"
+                >
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                  </svg>
+                </el-tooltip>
+              </el-col>
+              <el-col :span="12"
+                ><el-dropdown>
+                  <span class="el-dropdown-link">
+                    <el-avatar
+                      :size="30"
+                      style="float: left"
+                      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                    ></el-avatar>
+                    <div
+                      style="
+                        line-height: 36px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        float: left;
+                      "
+                    >
+                      {{ user.username }}
+                    </div>
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-yonghu"></use>
+                      </svg>
+                      <span>个人中心</span>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-tuichu"></use>
+                      </svg>
+                      <span>退出登录</span>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown></el-col
+              >
+            </el-row>
+          </el-col>
+        </el-row>
+      </el-header>
       <el-main><router-view></router-view></el-main>
     </el-container>
   </el-container>
 </template>
 <script>
+import screenfull from "screenfull";
 export default {
   data() {
     return {
       defaultactive: "/",
       menus: [],
+      user: {},
     };
   },
   mounted() {
-    // this.isuer();
+    this.isuer();
     this.defaultactive = this.$route.path;
     this.Getdefault();
   },
@@ -48,9 +142,30 @@ export default {
       this.$post("IsLogin");
     },
     Getdefault() {
-      this.$post("default").then((result) => {
-        this.menus = result.data.Menu;
-      });
+      this.$post("default")
+        .then((result) => {
+          this.menus = result.data.Menu;
+          this.user = result.data.User;
+        })
+        .catch((err) => {
+          this.$message.error(err.message);
+        });
+    },
+    // 退出登录
+    logout() {
+      this.$post("logout")
+        .then((result) => {
+          this.$message.success(result.message);
+          this.$cookies.remove("token");
+          this.$router.push("/login");
+        })
+        .catch((err) => {
+          this.$message.error(err.message);
+        });
+    },
+    // 全屏
+    fullscreen() {
+      screenfull.toggle();
     },
   },
 };

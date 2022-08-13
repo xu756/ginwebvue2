@@ -1,5 +1,14 @@
-.iconfont {
-  padding-right: 10px;
+.icon {
+  width: 1.3em;
+  height: 1.3em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.el-tooltip__popper.is-light {
+  color: #4e4e4e;
+  border: 1px solid #8a8a8a !important;
 }
 
 .el-menu {
@@ -23,7 +32,7 @@
 }
 
 .el-container .el-container .el-header {
-  border-bottom: 1px solid #CDCDCD;
+  border-bottom: 1px solid #cdcdcd;
 }
 
 .el-container .el-container .el-main {

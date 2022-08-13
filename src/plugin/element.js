@@ -22,7 +22,12 @@ import {
   TableColumn,
   Upload,
   Tabs,
-  TabPane
+  TabPane,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Tooltip,
+  Avatar
 } from "element-ui";
 Vue.use(Button);
 Vue.use(Form);
@@ -43,4 +48,9 @@ Vue.use(TableColumn);
 Vue.use(Upload);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
+Vue.use(Tooltip);
+Vue.use(Avatar);
 Vue.prototype.$message = Message;

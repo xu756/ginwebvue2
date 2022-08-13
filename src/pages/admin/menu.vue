@@ -18,7 +18,9 @@
       <el-table-column prop="path" label="路径" width="300"></el-table-column>
       <el-table-column prop="icon" label="图标" width="100" align="center">
         <template slot-scope="scope">
-          <i :class="'iconfont ' + scope.row.icon"></i>
+          <svg class="icon" aria-hidden="true">
+            <use :xlink:href="'#' + scope.row.icon"></use>
+          </svg>
         </template>
       </el-table-column>
       <el-table-column label="编辑">
@@ -61,6 +63,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-</style>
