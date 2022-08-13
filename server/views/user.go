@@ -5,6 +5,7 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 	"example.com/mod/cache"
+	"example.com/mod/logs"
 	"example.com/mod/methods"
 	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
@@ -53,6 +54,13 @@ func Login(c *gin.Context) {
 	cache.Set(user.UserName, token, 60*60*24) //redis缓存token
 	user.Frequency = user.Frequency + 1
 	db.Save(&user)
+	go logs.Logs(logs.LogData{
+		User:     user.UserName,
+		Category: "登录",
+		Ip:       c.ClientIP(),
+		Type:     "普通",
+		Content:  user.UserName + "登录成功",
+	})
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "登录成功",
@@ -141,6 +149,13 @@ func Register2(c *gin.Context) {
 	cache.Set(user.UserName, token, 60*60*24) //redis缓存token
 	user.Frequency = user.Frequency + 1
 	db.Create(&user)
+	go logs.Logs(logs.LogData{
+		User:     user.UserName,
+		Category: "注册新用户",
+		Ip:       c.ClientIP(),
+		Type:     "普通",
+		Content:  "注册新用户---" + user.UserName,
+	})
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "注册成功",
@@ -174,6 +189,13 @@ func IsLogin(c *gin.Context) {
 func Logout(c *gin.Context) {
 	useranme := c.GetHeader("username")
 	cache.Del(useranme)
+	go logs.Logs(logs.LogData{
+		User:     useranme,
+		Category: "退出登录",
+		Ip:       c.ClientIP(),
+		Type:     "普通",
+		Content:  useranme + "退出登录",
+	})
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "退出成功",

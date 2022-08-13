@@ -60,6 +60,7 @@ type Log struct {
 	User      string    //用户名
 	UserId    int       //用户ID
 	Role      uint      //角色
+	Ip        string    //IP
 	Catetory  string    //日志类型  登录、操作、异常
 	Type      string    //日志类型
 	Content   string    //日志内容

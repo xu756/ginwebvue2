@@ -11,7 +11,7 @@ import "example.com/mod/models"
 
 type LogData struct {
 	User     string `json:"user"`
-	Role     uint   `json:"role"`
+	Ip       string `json:"ip"`
 	Category string `json:"category"`
 	Type     string `json:"type"`
 	Content  string `json:"content"`
@@ -27,6 +27,7 @@ func Logs(data LogData) {
 	log.UserId = user.Id
 	log.Catetory = data.Category
 	log.Type = data.Type
+	log.Ip = data.Ip
 	log.Content = data.Content
 	log.Role = user.Role
 	db.Create(&log)

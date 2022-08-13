@@ -32,7 +32,13 @@ type SubMenu struct {
 
 type DefaultData struct {
 	Menu []Menu
-	User models.User
+	User struct {
+		Id       int      `json:"id"`
+		UserName string   `json:"username"` // 用户名
+		Role     uint     `json:"role"`     // 角色
+		Portrait string   `json:"portrait"` // 头像
+		Message  []string `json:"message"`  // 消息
+	}
 }
 
 func Default(c *gin.Context) {
@@ -78,7 +84,11 @@ func Default(c *gin.Context) {
 			})
 		}
 	}
-	Data.User = user
+	Data.User.Id = user.Id
+	Data.User.UserName = user.UserName
+	Data.User.Role = user.Role
+	Data.User.Portrait = user.Portrait
+	Data.User.Message = []string{"您有1条未读消息", "您有2条未读消息"}
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "获取数据成功",
@@ -159,9 +169,9 @@ func UploadMenu(c *gin.Context) {
 
 func GetLogs(c *gin.Context) {
 	logs.Logs(logs.LogData{
-		User:     "admin",
-		Role:     1,
-		Category: "获取logs",
+		User:     "",
+		Category: "",
+		Ip:       c.ClientIP(),
 		Type:     "普通",
 		Content:  "",
 	})
