@@ -25,16 +25,64 @@
       </el-table-column>
       <el-table-column label="编辑">
         <template slot-scope="scope">
-          <el-button type="text" size="mini" @click="handleEdit(scope.row)">
+          <el-button type="text" size="mini" @click="Edit(scope.row)">
             编辑
           </el-button>
 
-          <el-button type="text" size="mini" @click="handleDelete(scope.row)">
+          <el-button type="text" size="mini" @click="Delete(scope.row)">
             删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <span slot="title">{{ "修改" + edit.name + "菜单项" }}</span>
+      <el-form :model="edit" label-position="left" ref="editRef">
+        <el-row>
+          <el-col :span="9" :push="2"
+            ><el-form-item label="ID" label-width="50px">
+              <el-input
+                v-model="edit.id"
+                disabled
+                placeholder="不可修改"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="8" :push="4"
+            ><el-form-item label="路径" label-width="50px">
+              <el-input
+                v-model="edit.path"
+                disabled
+                placeholder="不可修改"
+              ></el-input> </el-form-item
+          ></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="9" :push="2"
+            ><el-form-item label="名称" label-width="50px">
+              <el-input
+                v-model="edit.name"
+                placeholder="请输入菜单名称"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="8" :push="4"
+            ><el-form-item label="图标" label-width="50px">
+              <el-input
+                v-model="edit.icon"
+                placeholder="请输入图标Symbol"
+              ></el-input> </el-form-item
+          ></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="5" :push="15">
+            <el-button type="primary" @click="EditMenu">提交</el-button>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -43,6 +91,13 @@ export default {
   data() {
     return {
       menus: [],
+      dialogVisible: false, //对话框是否显示
+      edit: {
+        id: 0,
+        name: "",
+        path: "",
+        icon: "",
+      },
     };
   },
   mounted() {
@@ -54,11 +109,30 @@ export default {
         this.menus = data;
       });
     },
-    handleEdit(row) {
+    // 编辑
+    Edit(row) {
+      this.dialogVisible = true;
+      this.$nextTick(() => {
+        this.edit = row;
+      });
+    },
+    // 删除
+    Delete(row) {
       console.log(row);
     },
-    handleDelete(row) {
-      console.log(row);
+    // 关闭
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then((e) => {
+          done();
+          this.$refs.editRef.resetFields();
+          console.log(this.edit);
+        })
+        .catch((_) => {});
+    },
+    EditMenu() {
+      console.log(this.edit.name);
+      this.dialogVisible = false;
     },
   },
 };

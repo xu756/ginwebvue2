@@ -21,15 +21,30 @@
   .el-aside {
     width: 200px;
     height: 100%;
-    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+    // background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+    background-color: #94B49F;
   }
   // 主体
   .el-container {
     width: 100%;
     height: 100%;
     .el-header {
-      border-bottom: 1px solid #cdcdcd;
+      background: linear-gradient(-45deg, #ffdee9, #b5fffc);
+      background-size: 600% 600%;
+      animation: gradientBG 20s ease infinite;
     }
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
     .el-main {
       width: 100%;
       height: 100%;

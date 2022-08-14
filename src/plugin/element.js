@@ -27,7 +27,9 @@ import {
   DropdownMenu,
   DropdownItem,
   Tooltip,
-  Avatar
+  Avatar,
+  Dialog,
+  MessageBox
 } from "element-ui";
 Vue.use(Button);
 Vue.use(Form);
@@ -53,4 +55,6 @@ Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 Vue.use(Tooltip);
 Vue.use(Avatar);
+Vue.use(Dialog);
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox.confirm;

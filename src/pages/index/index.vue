@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-menu :default-active="defaultactive" unique-opened router>
+      <el-menu :default-active="defaultactive"  router background-color="#F6FBF4" active-text-color="#47B5FF">
         <div v-for="item in menus" :key="item.name">
           <el-menu-item v-if="item.subMenu == null" :index="item.path"
             ><svg class="icon" aria-hidden="true">
@@ -98,10 +98,11 @@
                         line-height: 36px;
                         font-size: 16px;
                         font-weight: bold;
+                        padding-left: 10px;
                         float: left;
                       "
                     >
-                      {{ user.username }}
+                      {{user.username }}
                     </div>
                     <i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
