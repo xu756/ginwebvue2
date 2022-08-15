@@ -24,7 +24,7 @@ const routes = [
         meta: {
           title: "微信公众号"
         },
-        component: () => import("@/pages/wxchat-public/index.vue")
+        redirect: "/WxchatPublic/menu" // 重定向到子路由
       },
       {
         path: "/WxchatPublic/menu",
@@ -43,6 +43,22 @@ const routes = [
         },
 
         component: () => import("@/pages/wxchat-public/message.vue")
+      },
+      {
+        path: "/article",
+        name: "article",
+        meta: {
+          title: "文章"
+        },
+        redirect: "/article/list" // 重定向到子路由
+      },
+      {
+        path: "/article/list",
+        name: "articlelist",
+        meta: {
+          title: "文章列表"
+        },
+        component: () => import("@/pages/article/index.vue")
       },
       {
         path: "/admin/menu",

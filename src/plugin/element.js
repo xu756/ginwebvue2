@@ -29,7 +29,8 @@ import {
   Tooltip,
   Avatar,
   Dialog,
-  MessageBox
+  MessageBox,
+  Pagination
 } from "element-ui";
 Vue.use(Button);
 Vue.use(Form);
@@ -56,5 +57,6 @@ Vue.use(DropdownItem);
 Vue.use(Tooltip);
 Vue.use(Avatar);
 Vue.use(Dialog);
+Vue.use(Pagination);
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;
