@@ -158,9 +158,9 @@ func UploadMenu(c *gin.Context) {
 		})
 		return
 	}
-	var menu models.Menu
+	var menu SubMenu
 	c.BindJSON(&menu)
-	db.Create(&menu)
+	db.Where("id = ? AND path =?", menu.Id, menu.Path).Updates(models.Menu{Name: menu.Name, Icon: menu.Icon})
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "添加菜单成功",

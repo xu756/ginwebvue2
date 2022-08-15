@@ -28,10 +28,6 @@
           <el-button type="text" size="mini" @click="Edit(scope.row)">
             编辑
           </el-button>
-
-          <el-button type="text" size="mini" @click="Delete(scope.row)">
-            删除
-          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -112,13 +108,7 @@ export default {
     // 编辑
     Edit(row) {
       this.dialogVisible = true;
-      this.$nextTick(() => {
-        this.edit = row;
-      });
-    },
-    // 删除
-    Delete(row) {
-      console.log(row);
+      this.edit = row;
     },
     // 关闭
     handleClose(done) {
@@ -131,8 +121,11 @@ export default {
         .catch((_) => {});
     },
     EditMenu() {
-      console.log(this.edit.name);
-      this.dialogVisible = false;
+      this.$post("/update/menus", this.edit).then(({ data }) => {
+        this.$message.success("修改成功");
+        this.dialogVisible = false;
+        this.$router.go(0)
+      });
     },
   },
 };
