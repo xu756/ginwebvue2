@@ -1,10 +1,16 @@
 <template>
   <div>
     <el-table :data="articles" style="width: 100%">
-      <el-table-column prop="Id" label="ID" width="50"> </el-table-column>
-      <el-table-column prop="Name" label="标题" width="600"> </el-table-column>
-      <el-table-column prop="Tag" label="标签"> </el-table-column>
-      <el-table-column prop="Category" label="分类"> </el-table-column>
+      <el-table-column prop="id" label="ID" width="50"> </el-table-column>
+      <el-table-column prop="title" label="标题" width="600"> </el-table-column>
+      <el-table-column prop="tag" label="标签">
+        <template slot-scope="scope">
+          <el-tag v-for="item in scope.row.tag" :key="item.id"  effect="plain">{{
+            item.name
+          }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="category" label="分类"> </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
