@@ -73,18 +73,19 @@ type ArticleCategory struct {
 	Category []Article `gorm:"foreignKey:Category;references:Name"` //文章分类
 }
 type ArticleTag struct {
-	Id   int       `primaryKey:"true"`
-	Name string    `gorm:"index;type:varchar(100)"`
-	Tag  []Article `gorm:"foreignKey:Tag;references:Name"` //文章标签
+	Id int `primaryKey:"true" json:"id"`
+	// 不重复
+	Name string `gorm:"unique;type:varchar(100)" json:"name"`
 }
 
 // Article 文章
 type Article struct {
-	Id        int       `gorm:"primary_key"` //文章ID
-	Name      string    `gorm:"type:varchar(100)"`
-	Tag       string    `gorm:"type:varchar(100);default:'默认标签'"` //文章标签
-	Category  string    `gorm:"type:varchar(100);default:'默认分类'"` //文章分类
-	Contain   string    //文章内容
-	CreatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 创建时间
-	UpdatedAt time.Time `time_format:"2006-01-02 15:04:05"` // 更新时间
+	Id        int          `gorm:"primary_key" json:"id"`
+	Title     string       `json:"title" ` // 标题
+	Tag       []ArticleTag `gorm:"many2many:tags" json:"tag"`
+	Category  string       `gorm:"type:varchar(100) " json:"category"`
+	Content   string       `json:"content"`
+	Show      bool         `gorm:"default:true" json:"show"`   //是否显示
+	CreatedAt time.Time    `time_format:"2006-01-02 15:04:05"` // 创建时间
+	UpdatedAt time.Time    `time_format:"2006-01-02 15:04:05"` // 更新时间
 }
