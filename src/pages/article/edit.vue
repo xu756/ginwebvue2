@@ -1,19 +1,21 @@
 <template>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            
-        }
-    },
-}
+  data() {
+    return {
+      config: {
+        Name: "",
+        Tag: "",
+        Category: "",
+
+      },
+    };
+  },
+};
 </script>
 
 <style>
-
 </style>
