@@ -30,7 +30,8 @@ import {
   Avatar,
   Dialog,
   MessageBox,
-  Pagination
+  Pagination,
+  Tag
 } from "element-ui";
 Vue.use(Button);
 Vue.use(Form);
@@ -58,5 +59,6 @@ Vue.use(Tooltip);
 Vue.use(Avatar);
 Vue.use(Dialog);
 Vue.use(Pagination);
+Vue.use(Tag);
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;
