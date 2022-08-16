@@ -18,14 +18,14 @@ func GetArticle(c *gin.Context) {
 	models.InitMysqlDB()
 	var db = models.DB
 	var articles []models.Article
-	db.Find(&articles)
 	type Data struct {
 		Page     int `form:"current"`
 		PageSize int `form:"size"`
 	}
 	var data Data
 	c.BindQuery(&data)
-	db.Scopes(Paginate(data.Page, data.PageSize)).Find(&articles)
+	//db.Scopes(Paginate(data.Page, data.PageSize)).Find(&articles)
+	db.Preload("Tag").Scopes(Paginate(data.Page, data.PageSize)).Find(&articles)
 	var count int64
 	db.Table("articles").Count(&count)
 	c.JSON(200, gin.H{
@@ -37,7 +37,6 @@ func GetArticle(c *gin.Context) {
 		},
 	})
 }
-
 func Paginate(page int, pageSize int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		if page == 0 {
@@ -52,4 +51,31 @@ func Paginate(page int, pageSize int) func(db *gorm.DB) *gorm.DB {
 		offset := (page - 1) * pageSize
 		return db.Offset(offset).Limit(pageSize)
 	}
+}
+
+// CreateArticle 创建文章
+func CreateArticle(c *gin.Context) {
+	models.InitMysqlDB()
+	var db = models.DB
+	var article models.Article
+
+	c.BindJSON(&article)
+	var tags = article.Tag
+	article.Tag = []models.ArticleTag{}
+	for _, tag := range tags {
+		var Tag models.ArticleTag
+		db.Where(&models.ArticleTag{Name: tag.Name}).Find(&Tag)
+		if Tag.Id == 0 {
+			Tag.Name = tag.Name
+			db.Create(&Tag)
+		}
+		article.Tag = append(article.Tag, Tag)
+
+	}
+	go db.Create(&article)
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "文章创建成功",
+		"data": article,
+	})
 }

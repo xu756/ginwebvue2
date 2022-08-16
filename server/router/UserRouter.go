@@ -17,6 +17,7 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.GET("/get/menu", views.GetMenu)                     //获取菜单数据
 	rr.POST("/update/menus", views.UploadMenu)             // 更新菜单数据
 	rr.GET("/get/articles", views.GetArticle)              // 获取文章数据
+	rr.POST("/CreateArticle", views.CreateArticle)         // 创建文章
 	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter) // 获取access_token
 	rr.GET("/getmenu", wxchat.GetMenuRouter)               // 获取公众号菜单
 	rr.GET("/getlogs", views.GetLogs)                      // 获取日志
