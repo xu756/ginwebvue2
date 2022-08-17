@@ -61,12 +61,20 @@ const routes = [
         component: () => import("@/pages/article/index.vue")
       },
       {
-        path: "/article/edit",
+        path: "/article/edit?token=:token&article_id=:id",
         name: "articleedit",
+        meta: {
+          title: "编辑文章"
+        },
+        component: () => import("@/pages/article/edit.vue")
+      },
+      {
+        path: "/article/write",
+        name: "articlewrite",
         meta: {
           title: "写文章"
         },
-        component: () => import("@/pages/article/edit.vue")
+        component: () => import("@/pages/article/write.vue")
       },
       {
         path: "/admin/menu",
