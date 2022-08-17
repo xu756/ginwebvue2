@@ -16,6 +16,7 @@ import md5 from "js-md5";
 Vue.prototype.$md5 = md5;
 // moment 时间格式化
 import moment from "moment";
+moment.locale("zh-cn");
 Vue.prototype.$moment = moment;
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
