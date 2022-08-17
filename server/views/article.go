@@ -8,12 +8,13 @@
 package views
 
 import (
+	"example.com/mod/cache"
 	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
-func GetArticle(c *gin.Context) {
+func GetArticles(c *gin.Context) {
 
 	models.InitMysqlDB()
 	var db = models.DB
@@ -78,4 +79,45 @@ func CreateArticle(c *gin.Context) {
 		"msg":  "文章创建成功",
 		"data": article,
 	})
+}
+func DeleteArticle(c *gin.Context) {
+	token := c.GetHeader("token")
+	useranme := c.GetHeader("username")
+	if cache.Get(useranme) != token {
+		c.JSON(200, gin.H{
+			"type": "loginout",
+			"msg":  "未登录",
+		})
+		return
+	}
+	models.InitMysqlDB()
+	var db = models.DB
+	var Data struct {
+		Id int `json:"id"`
+	}
+	c.BindJSON(&Data)
+	// 删除文章
+	var article models.Article
+	db.Table("tags").Where("article_id = ?", Data.Id).Delete(&models.ArticleTag{})
+	db.Where("id = ?", Data.Id).Delete(&article)
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "文章删除成功",
+	})
+
+}
+
+func GetArticle(c *gin.Context) {
+	id := c.Query("id")
+	models.InitMysqlDB()
+	var db = models.DB
+	var article models.Article
+	db.Preload("Tag").Where("id = ?", id).First(&article)
+
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  article.Title + " 文章获取成功",
+		"data": article,
+	})
+
 }
