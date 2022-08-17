@@ -10,12 +10,16 @@
       <el-input v-model="userform.username"></el-input>
     </el-form-item>
     <el-form-item label="密码" prop="password">
-      <el-input type="password" v-model="userform.password"></el-input>
+      <el-input
+        type="password"
+        v-model="userform.password"
+        clearable
+      ></el-input>
     </el-form-item>
     <el-row align="bottom">
       <el-col :span="15">
         <el-form-item label="验证码" prop="captcha">
-          <el-input v-model="userform.captcha"></el-input>
+          <el-input v-model="userform.captcha" clearable></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="9">
