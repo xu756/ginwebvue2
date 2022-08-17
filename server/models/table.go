@@ -84,6 +84,7 @@ type Article struct {
 	Title     string       `json:"title" ` // 标题
 	Tag       []ArticleTag `gorm:"many2many:tags" json:"tag"`
 	Category  string       `gorm:"type:varchar(100) " json:"category"`
+	Author    string       `gorm:"type:varchar(100) " json:"author"`
 	Content   string       `json:"content"`
 	Show      bool         `gorm:"default:true" json:"show"`   //是否显示
 	CreatedAt time.Time    `time_format:"2006-01-02 15:04:05"` // 创建时间
