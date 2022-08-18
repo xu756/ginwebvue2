@@ -121,3 +121,19 @@ func GetArticle(c *gin.Context) {
 	})
 
 }
+func Get_category_tags(c *gin.Context) {
+	models.InitMysqlDB()
+	var db = models.DB
+	var tags []models.ArticleTag
+	db.Find(&tags)
+	var categorys []models.ArticleCategory
+	db.Find(&categorys)
+	c.JSON(200, gin.H{
+		"type": "success",
+		"msg":  "分类标签获取成功",
+		"data": gin.H{
+			"tags":      tags,
+			"categorys": categorys,
+		},
+	})
+}
