@@ -17,6 +17,7 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.GET("/get/menu", views.GetMenu)                     //获取菜单数据
 	rr.POST("/update/menus", views.UploadMenu)             // 更新菜单数据
 	rr.GET("/article", views.GetArticle)                   // 获取文章详情
+	rr.POST("/get/tags/category", views.Get_category_tags) // 获取标签分类
 	rr.GET("/get/articles", views.GetArticles)             // 获取所有文章
 	rr.POST("/CreateArticle", views.CreateArticle)         // 创建文章
 	rr.POST("/delete/article", views.DeleteArticle)        // 删除文章
