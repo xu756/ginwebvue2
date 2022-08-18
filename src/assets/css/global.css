@@ -7,6 +7,10 @@
   overflow: hidden;
 }
 
+.el-tag {
+  margin: 0 5px;
+}
+
 .el-tooltip__popper.is-light {
   color: #4e4e4e;
   border: 1px solid #8a8a8a !important;
