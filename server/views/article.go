@@ -121,8 +121,10 @@ func GetArticle(c *gin.Context) {
 	})
 
 }
+
+// Get_category_tags 获取分类标签
 func Get_category_tags(c *gin.Context) {
-	models.InitMysqlDB()
+	//models.InitMysqlDB()
 	var db = models.DB
 	var tags []models.ArticleTag
 	db.Find(&tags)
