@@ -21,11 +21,7 @@ export default {
       this.container = data;
     },
   },
-  watch: {
-    container(val) {
-      console.log(val);
-    },
-  },
+ 
 }
 </script>
 

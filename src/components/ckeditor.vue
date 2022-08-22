@@ -11,9 +11,11 @@ import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 import "@ckeditor/ckeditor5-build-decoupled-document/build/translations/zh-cn"; // 中文包
 import UploadAdapter from "@/plugin/upload.js";
 export default {
+  props: {
+    Data: String,
+  },
   data() {
     return {
-      Data: "<p>Hello World!</p>",
       editor: DecoupledEditor, // 编辑器实例
       editorConfig: {
         language: "zh-cn", // 中文
@@ -64,8 +66,10 @@ export default {
     this.Data = this.editorData;
   },
   watch: {
-    'Data'(val) {     // 当Data变化时，触发该函数
-      this.$emit('getdata', val);
+    Data(val) {
+      // 当Data变化时，触发该函数
+      this.Data = val;
+      this.$emit("getdata", val);
     },
   },
   methods: {
