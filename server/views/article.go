@@ -139,3 +139,11 @@ func Get_category_tags(c *gin.Context) {
 		},
 	})
 }
+
+// EditArticle 编辑文章
+func EditArticle(c *gin.Context) {
+	var db = models.DB
+	var article models.Article
+	c.BindJSON(&article)
+	db.Where("")
+}

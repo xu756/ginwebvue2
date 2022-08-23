@@ -23,7 +23,7 @@ func InitMysqlDB() {
 	// SetMaxOpenConns 设置打开数据库连接的最大数量。
 	sqlDB.SetMaxOpenConns(100)
 	// SetConnMaxLifetime 设置了连接可复用的最大时间。
-	sqlDB.SetConnMaxLifetime(time.Hour)
+	sqlDB.SetConnMaxLifetime(time.Second)
 	DB = db
 	err = DB.AutoMigrate(&UserRole{}, &User{}, &Emial{}, &Upload{}, &Log{}, &ArticleCategory{}, &Article{}, &ArticleTag{}, &Menu{})
 	if err != nil {

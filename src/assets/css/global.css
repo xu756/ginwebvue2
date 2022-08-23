@@ -16,6 +16,10 @@
   border: 1px solid #8a8a8a !important;
 }
 
+.ck-content {
+  background-color: #E7F6F2;
+}
+
 .el-menu {
   --el-menu-bg-color: none;
 }
