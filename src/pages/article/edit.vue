@@ -73,7 +73,7 @@ export default {
       inputValue: "", // 新标签
     };
   },
-  mounted() {
+  created() {
     this.$get("article", { id: this.article.id }).then(({ data }) => {
       this.article = data;
     });

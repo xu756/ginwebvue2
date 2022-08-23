@@ -1,7 +1,7 @@
 <template>
   <ckeditor
     :editor="editor"
-    v-model="Data"
+    v-model="context"
     :config="editorConfig"
     @ready="onReady"
   ></ckeditor>
@@ -11,11 +11,9 @@ import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 import "@ckeditor/ckeditor5-build-decoupled-document/build/translations/zh-cn"; // 中文包
 import UploadAdapter from "@/plugin/upload.js";
 export default {
-  props: {
-    Data: String,
-  },
   data() {
     return {
+      context: "",
       editor: DecoupledEditor, // 编辑器实例
       editorConfig: {
         language: "zh-cn", // 中文
@@ -57,19 +55,20 @@ export default {
     };
   },
   props: {
-    editorData: {
+    Data: {
       type: String,
       default: "<p>在这里输入文字....</p>",
     },
   },
   mounted() {
-    this.Data = this.editorData;
+    this.context = this.Data;
   },
   watch: {
-    Data(val) {
-      // 当Data变化时，触发该函数
-      this.Data = val;
+    context(val) {
       this.$emit("getdata", val);
+    },
+    Data(val) {
+      this.context = val;
     },
   },
   methods: {
