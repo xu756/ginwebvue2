@@ -22,8 +22,9 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.POST("/CreateArticle", views.CreateArticle)         // 创建文章
 	rr.POST("/delete/article", views.DeleteArticle)        // 删除文章
 	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter) // 获取access_token
-	rr.GET("/getmenu", wxchat.GetMenuRouter)               // 获取公众号菜单
-	rr.GET("/getlogs", views.GetLogs)                      // 获取日志
+	rr.GET("/getmenu", wxchat.GetMenuRouter)
+	// 获取公众号菜单
+	rr.GET("/getlogs", views.GetLogs) // 获取日志
 	return r
 
 }
