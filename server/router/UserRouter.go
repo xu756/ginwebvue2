@@ -20,6 +20,7 @@ func UserRouter(r *gin.Engine) *gin.Engine {
 	rr.POST("/get/tags/category", views.Get_category_tags) // 获取标签分类
 	rr.GET("/get/articles", views.GetArticles)             // 获取所有文章
 	rr.POST("/CreateArticle", views.CreateArticle)         // 创建文章
+	rr.POST("/Edit/article", views.EditArticle)            // 编辑文章
 	rr.POST("/delete/article", views.DeleteArticle)        // 删除文章
 	rr.GET("/getAccessToken", wxchat.GetAccessTokenRouter) // 获取access_token
 	rr.GET("/getmenu", wxchat.GetMenuRouter)

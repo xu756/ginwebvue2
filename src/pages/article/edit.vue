@@ -114,7 +114,9 @@ export default {
     },
     // 提交
     submit() {
-      console.log(this.article.content);
+      this.$post("/Edit/article",this.article).then(({ data }) => {
+        console.log(data)
+      });
     },
   },
 };

@@ -142,8 +142,18 @@ func Get_category_tags(c *gin.Context) {
 
 // EditArticle 编辑文章
 func EditArticle(c *gin.Context) {
+	models.InitMysqlDB()
 	var db = models.DB
 	var article models.Article
-	c.BindJSON(&article)
-	db.Where("")
+	var data models.Article
+	c.BindJSON(&data)
+	db.First(&article, data.Id)
+	// 删除标签
+	err := db.Model(&article).Association("Tag").Replace(data.Tag)
+	if err != nil {
+		return
+	}
+	article = data
+	db.Save(&article)
+
 }
