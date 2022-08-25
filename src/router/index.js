@@ -61,7 +61,8 @@ const routes = [
         component: () => import("@/pages/article/index.vue")
       },
       {
-        path: "/article/edit",
+        path:
+          "/article/edit",
         name: "articleedit",
         meta: {
           title: "编辑文章"

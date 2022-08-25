@@ -27,16 +27,10 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button
-            type="text"
-            size="small"
-            @click="Edit(scope.row)"
+          <el-button type="text" size="small" @click="Edit(scope.row)"
             >编辑</el-button
           >
-          <el-button
-            type="text"
-            size="small"
-            @click="Delete(scope.row)"
+          <el-button type="text" size="small" @click="Delete(scope.row)"
             >删除</el-button
           >
         </template>
@@ -102,12 +96,9 @@ export default {
     // 编辑功能
     Edit(row) {
       this.$router.push({
-        name: "articleedit",
-        params: { 
-          token:this.$cookies.get("token"),
-          id: row.id,
-          title: row.title,
-           },
+        path: `/article/edit?article_title=${row.title}&article_id=${
+          row.id
+        }&user_token=${this.$cookies.get("token")}`,
       });
     },
   },

@@ -17,6 +17,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="作者：">
+        <el-input v-model="article.author" placeholder="请输入作者"></el-input>
+      </el-form-item>
       <el-form-item label="文章标签：">
         <el-tag
           v-for="tag in article.tag"
@@ -60,7 +63,7 @@ export default {
   data() {
     return {
       article: {
-        id: 1,
+        id: this.$route.query.article_id,
         title: "",
         content: "",
         category: "",
@@ -114,8 +117,8 @@ export default {
     },
     // 提交
     submit() {
-      this.$post("/Edit/article",this.article).then(({ data }) => {
-        console.log(data)
+      this.$post("/Edit/article", this.article).then(({ data }) => {
+        console.log(data);
       });
     },
   },
