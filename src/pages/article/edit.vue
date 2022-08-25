@@ -41,7 +41,7 @@
         >
         </el-input>
         <el-button v-else class="button-new-tag" size="small" @click="showInput"
-          >+ New Tag</el-button
+          >+ 新标签</el-button
         >
       </el-form-item>
       <el-form-item label="内容：">
