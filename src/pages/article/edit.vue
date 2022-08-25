@@ -79,6 +79,11 @@ export default {
   created() {
     this.$get("article", { id: this.article.id }).then(({ data }) => {
       this.article = data;
+      if (data.title == "") {
+        this.$message.error("没有找到文章")
+        this.$store.commit("delete_tabs", "/article/edit")
+        this.$router.push("/article/list");
+      }
     });
     this.getTags();
   },
