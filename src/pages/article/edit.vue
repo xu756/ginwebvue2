@@ -117,6 +117,7 @@ export default {
       this.inputValue = "";
     },
     //
+    
     getData(data) {
       this.article.content = data;
     },
