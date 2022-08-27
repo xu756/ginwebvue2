@@ -32,7 +32,7 @@ func Set(key string, value interface{}, timeout int) {
 	Del(key)
 	err := RedisClient.Set(ctx, key, value, time.Duration(timeout)*time.Second).Err()
 	if err != nil {
-		fmt.Println("缓存错误")
+		fmt.Println("缓存错误", err)
 		return
 	}
 }
@@ -46,6 +46,17 @@ func Get(key string) interface{} {
 		return nil
 	}
 	return val
+}
+
+func GetJson(key string) string {
+	RedisInit()
+	val, err := RedisClient.Get(ctx, key).Result()
+	if err != nil {
+		fmt.Println("缓存错误", err)
+		return "nil"
+	}
+	return val
+
 }
 
 // Exists Exists 封装redis的exists方法

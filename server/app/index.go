@@ -10,34 +10,16 @@ package app
 import (
 	"example.com/mod/models"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 func Index(c *gin.Context) {
 	models.InitMysqlDB()
 	var db = models.DB
 	var articles []models.Article
-	db.Find(&articles)
-	//分页
-	db.Scopes(Paginate(1, 10)).Find(&articles)
+	db.Where("category = '深度校园'").Order("-id").Limit(10).Find(&articles)
 	c.JSON(200, gin.H{
 		"type": "success",
 		"msg":  "获取小程序基本信息成功",
+		"data": articles,
 	})
-}
-
-func Paginate(page int, pageSize int) func(db *gorm.DB) *gorm.DB {
-	return func(db *gorm.DB) *gorm.DB {
-		if page == 0 {
-			page = 1
-		}
-		switch {
-		case pageSize > 100:
-			pageSize = 100
-		case pageSize <= 0:
-			pageSize = 10
-		}
-		offset := (page - 1) * pageSize
-		return db.Offset(offset).Limit(pageSize)
-	}
 }
