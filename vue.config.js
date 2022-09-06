@@ -1,6 +1,8 @@
 // const webpack = require('webpack')
 
 module.exports = {
+  publicPath: "./",
+  assetsDir: "static",
   transpileDependencies: true,
   // 跨域支持
   devServer: {

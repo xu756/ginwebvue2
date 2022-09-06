@@ -5,7 +5,7 @@ import { Message, Loading } from "element-ui";
 import moment from "moment";
 import VueCookies from "vue-cookies";
 let loadingInstance; // 加载全局的loading
-const baseurl = "/api/vue2/user/";
+const baseurl = "https://cs.xu756.top/api/vue2/user/";
 const request = axios.create({
   baseURL: baseurl,
   timeout: 5000,
